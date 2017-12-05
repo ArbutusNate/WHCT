@@ -5,7 +5,8 @@ import './MainView.css';
 
 class MainView extends Component {
   render () {
-   return ( <div>
+   return (
+    <div className="background">
       <Header/>
       <Social/>
     </div>
