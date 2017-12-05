@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../Header';
 import Social from '../Social';
-import TournamentView from '../TournamentView';
+import BestOfFive from '../BestOfFive';
 import './MainView.css';
 
 class MainView extends Component {
@@ -10,7 +10,7 @@ class MainView extends Component {
     <div className="background">
       <Header />
       <Social />
-      <TournamentView />
+      <BestOfFive />
     </div>
    )
   }
