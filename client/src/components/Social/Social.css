@@ -1,0 +1,8 @@
+.social {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  height: 400px;
+  width: 75px;
+  background-color: #787271;
+}
