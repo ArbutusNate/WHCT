@@ -1,6 +1,6 @@
 .b5-background {
   border: 1px solid blue;
-  margin: 100px 100px 0px 30px;
+  margin: 15px 100px 0px 30px;
   background-color: #222527;
   /*height: 80%;*/
 }
@@ -12,8 +12,9 @@
 }
 
 .b5-header {
+  text-align: center;
   color: lightgrey;
-  margin-left: 35%;
+  /*margin-left: 35%;*/
 }
 
 .b5-player {

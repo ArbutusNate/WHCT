@@ -5,3 +5,7 @@ body {
 footer {
   display: none;
 }
+
+.header-pad {
+  height: 85px;
+}
