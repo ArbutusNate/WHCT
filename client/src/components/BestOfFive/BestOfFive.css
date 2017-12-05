@@ -47,4 +47,6 @@
 
 .b5-score {
   float: right;
+  font-size: 57px;
+  margin: 0px 10px;
 }

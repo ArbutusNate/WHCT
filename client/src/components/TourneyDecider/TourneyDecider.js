@@ -12,6 +12,8 @@ const TourneyDecider = props => {
       break;
     case "BestOfFive":
       return <BestOfFive/>
+    default:
+      return <p>no tourney</p>
   }
 }
 

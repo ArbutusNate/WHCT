@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import BestOfFive from '../BestOfFive';
 import TourneyDecider from '../TourneyDecider';
 import './TourneyZone.css';
 
@@ -42,6 +41,18 @@ class TourneyZone extends Component {
             <option value="BestOfFive"> Best of Five </option>
             <option value="Bracket"> Bracket </option>
           </select>
+          {this.state.mode === "BestOfFive" &&
+          <div>
+            <select name="player1">
+              <option value="Turin"> Turin </option>
+              <option value="JonTaun"> JonTaun </option>
+            </select>
+            <select>
+              <option value="Loremaster of Sotek"> Loremaster of Sotek </option>
+              <option value="ItalianSpartacus"> ItalianSpartacus </option>
+            </select>
+          </div>
+          }
           <input type="submit" />
         </form>
         <TourneyDecider mode={this.state.mode}/>
