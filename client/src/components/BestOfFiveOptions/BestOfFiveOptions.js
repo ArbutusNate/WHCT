@@ -1,7 +1,7 @@
 import React from 'react';
 
-const BestOfFiveOptions = (props) => {
-  return (
+const BestOfFiveOptions = props =>
+
   <div>
     <select name="player1" onChange={props.handleChange}>
       <option value="default"> Choose Player 1 </option>
@@ -16,8 +16,8 @@ const BestOfFiveOptions = (props) => {
     <button name="player1wins" onClick={props.updateScore}>Player 1 Win</button>
     <button name="player2wins" onClick={props.updateScore}>Player 2 Win</button>
     <button onClick={props.resetTourney}> Reset </button>
+    <input type="submit" />
   </div>
-  )
-}
+
 
 export default BestOfFiveOptions

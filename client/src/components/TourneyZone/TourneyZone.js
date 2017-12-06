@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import Axios from 'axios';
 import TourneyDecider from '../TourneyDecider';
 import BestOfFiveOptions from '../BestOfFiveOptions';
+import NewPlayerForm from '../NewPlayerForm';
 import './TourneyZone.css';
 
 class TourneyZone extends Component {
@@ -39,10 +41,24 @@ class TourneyZone extends Component {
     })
   }
 
-  updateTourney = (e) => {
+  handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
-    console.log("we did it");
+    switch(this.state.mode) {
+      case "nope":
+        console.log("saving new player");
+        let playername = e.target.newplayername.value;
+        Axios.post(`/admin/newplayer/${playername}`)
+        break;
+      case "BestOfThree":
+        console.log("saving Bo3 tournament results");
+        break;
+      case "BestOfFive":
+        console.log("saving Bo5 tournament results");
+        break;
+      default:
+        console.log("ummmm whut?");
+        break;
+    }
   }
 
   componentDidMount = () => {
@@ -58,13 +74,16 @@ class TourneyZone extends Component {
     return (
       <div className="tourney-zone">
         <h2 className="admin-controls"> Tournament Admin Controls </h2>
-        <form className="form-control">
+        <form className="form-control" onSubmit={this.handleFormSubmit}>
           <select name="mode" className="mode-select"onChange={this.handleModeChange}>
-            <option value="nope"> Select Tournament Type </option>
+            <option value="nope"> Add New Player </option>
             <option value="BestOfThree"> Best of Three </option>
             <option value="BestOfFive"> Best of Five </option>
             <option value="Bracket"> Bracket </option>
           </select>
+          {this.state.mode === "nope" &&
+            <NewPlayerForm addNewPlayer={this.addNewPlayer}/>
+          }
           {this.state.mode === "BestOfFive" &&
             <BestOfFiveOptions
               handleChange={this.handleModeChange}
