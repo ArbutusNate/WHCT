@@ -15,6 +15,7 @@ const BestOfFiveOptions = (props) => {
     </select>
     <button name="player1wins" onClick={props.updateScore}>Player 1 Win</button>
     <button name="player2wins" onClick={props.updateScore}>Player 2 Win</button>
+    <button onClick={props.resetTourney}> Reset </button>
   </div>
   )
 }

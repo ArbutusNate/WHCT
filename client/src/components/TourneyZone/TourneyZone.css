@@ -1,3 +1,21 @@
-.tourney-zone {
-  
+.admin-controls {
+  color: #8e0d01;
+  margin-left: 30px;
 }
+
+.form-control {
+  margin: 15px 0px 0px 30px;
+}
+
+.form-control select {
+  margin-left: 20px;
+}
+
+.form-control button {
+  margin-left: 20px;
+}
+
+.mode-select {
+  float:left;
+}
+
