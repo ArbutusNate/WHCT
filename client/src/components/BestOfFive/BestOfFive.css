@@ -1,14 +1,15 @@
 .b5-background {
-  border: 1px solid blue;
   margin: 15px 100px 0px 30px;
   background-color: #222527;
+  padding-top: 1px;
+  border-radius: 10px;
   /*height: 80%;*/
 }
 
 .b5-main {
-  width: 100%;
-  height: 100%;
   background-color: gainsboro;
+  height: 80px;
+  padding: 10px;
 }
 
 .b5-header {
@@ -18,11 +19,10 @@
 }
 
 .b5-player {
-  color: gainsboro;
+  color: black;
   /*height: 150px;*/
   width: 49%;
   /*margin: auto;*/
-  border: 1px solid blue;
 }
 
 .b5-player h3 {
@@ -36,13 +36,6 @@
 
 .b5-p2 {
   float: right;
-}
-
-.player-thumbnail {
-  width: 75px;
-  height: 75px;
-  float: left;
-  margin: 10px 10px;
 }
 
 .b5-score {

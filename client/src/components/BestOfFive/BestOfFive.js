@@ -1,4 +1,5 @@
 import React from 'react';
+import TourneyPlayerName from '../TourneyPlayerName';
 import './BestOfFive.css';
 
 const BestOfFive = props =>
@@ -8,16 +9,8 @@ const BestOfFive = props =>
       <h2>Best 3 of 5 Tournament</h2>
     </div>
     <div className="b5-main">
-      <div className="b5-p1 b5-player">
-        <img src="images/turin_brand.jpg" alt="Turin's Youtube Brand" className="player-thumbnail"/>
-        <h3></h3>
-        <p className="b5-score">0</p>
-      </div>
-      <div className="b5-p2 b5-player">
-        <img src="images/turin_brand.jpg" alt="Turin's Youtube Brand" className="player-thumbnail"/>
-        <h3></h3>
-        <p className="b5-score">0</p>
-      </div>
+      <TourneyPlayerName player={props.player1} score={props.player1wins} />
+      <TourneyPlayerName player={props.player2} score={props.player2wins} />
     </div>
   </div>
 

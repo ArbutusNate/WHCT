@@ -7,7 +7,7 @@ const TourneyDecider = props => {
     case "BestOfThree":
       return <p>best of three</p>
     case "BestOfFive":
-      return <BestOfFive player1="WTF" player2="ugh" />
+      return <BestOfFive {...props} />
     default:
       return <p>no tourney</p>
   }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TourneyDecider from '../TourneyDecider';
+import BestOfFiveOptions from '../BestOfFiveOptions';
 import './TourneyZone.css';
 
 class TourneyZone extends Component {
@@ -20,6 +21,14 @@ class TourneyZone extends Component {
     })
   }
 
+  updateScore = (e) => {
+    e.preventDefault();
+    console.log(`Adding 1 win to ${e.target.name}`)
+    this.setState({
+      [e.target.name]: this.state[e.target.name] + 1
+    })
+  }
+
   updateTourney = (e) => {
     e.preventDefault();
     console.log(e.target.value);
@@ -29,7 +38,9 @@ class TourneyZone extends Component {
   componentDidMount = () => {
     this.setState({
       player1: "Choose Player 1",
-      player2: "Choose Player 2"
+      player2: "Choose Player 2",
+      player1wins: 0,
+      player2wins: 0
     })
   }
 
@@ -44,21 +55,10 @@ class TourneyZone extends Component {
             <option value="Bracket"> Bracket </option>
           </select>
           {this.state.mode === "BestOfFive" &&
-          <div>
-            <select name="player1" onChange={this.handleModeChange}>
-              <option value="default"> Choose Player 1 </option>
-              <option value="Turin"> Turin </option>
-              <option value="JonTaun"> JonTaun </option>
-            </select>
-            <select name="player2" onChange={this.handleModeChange}>
-              <option value="default"> Choose Player 2 </option>
-              <option value="Loremaster of Sotek"> Loremaster of Sotek </option>
-              <option value="ItalianSpartacus"> ItalianSpartacus </option>
-            </select>
-          </div>
+            <BestOfFiveOptions handleChange={this.handleModeChange} updateScore={this.updateScore}/>
           }
         </form>
-        <TourneyDecider mode={this.state.mode} player1={this.state.player1} player2 = "k"/>
+        <TourneyDecider {...this.state} />
       </div>
     )
   }
