@@ -6,15 +6,17 @@ class TourneyZone extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      mode: "nope"
+      mode: "nope",
+      player1: "Choose Player 1",
+      player2: "Choose Player 2"
     }
   }
 
-  handleChange = (e) => {
+  handleModeChange = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
+    console.log(e.target.name);
     this.setState({
-      mode: e.target.value
+      [e.target.name]: e.target.value
     })
   }
 
@@ -24,18 +26,18 @@ class TourneyZone extends Component {
     console.log("we did it");
   }
 
-  componentDidMount(){
+  componentDidMount = () => {
     this.setState({
-      mode: "nope"
+      player1: "Choose Player 1",
+      player2: "Choose Player 2"
     })
   }
-
 
   render() {
     return (
       <div className="tourney-zone">
         <form>
-          <select name="type-select" onChange={this.handleChange}>
+          <select name="mode" onChange={this.handleModeChange}>
             <option value="nope"> Select Tournament Type </option>
             <option value="BestOfThree"> Best of Three </option>
             <option value="BestOfFive"> Best of Five </option>
@@ -43,19 +45,20 @@ class TourneyZone extends Component {
           </select>
           {this.state.mode === "BestOfFive" &&
           <div>
-            <select name="player1">
+            <select name="player1" onChange={this.handleModeChange}>
+              <option value="default"> Choose Player 1 </option>
               <option value="Turin"> Turin </option>
               <option value="JonTaun"> JonTaun </option>
             </select>
-            <select>
+            <select name="player2" onChange={this.handleModeChange}>
+              <option value="default"> Choose Player 2 </option>
               <option value="Loremaster of Sotek"> Loremaster of Sotek </option>
               <option value="ItalianSpartacus"> ItalianSpartacus </option>
             </select>
           </div>
           }
-          <input type="submit" />
         </form>
-        <TourneyDecider mode={this.state.mode}/>
+        <TourneyDecider mode={this.state.mode} player1={this.state.player1} player2 = "k"/>
       </div>
     )
   }
