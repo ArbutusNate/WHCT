@@ -1,4 +1,5 @@
 import React from "react";
+import './TourneyPlayerName.css'
 
 const TourneyPlayerName = (props) => {
   return (
