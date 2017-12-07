@@ -47,7 +47,7 @@ class TourneyZone extends Component {
       case "nope":
         console.log("saving new player");
         let playername = e.target.newplayername.value;
-        Axios.post(`admin/newplayer/${playername}`)
+        Axios.post(`/admin/newplayer/${playername}`)
           .then(res => {
             console.log(res);
           })
