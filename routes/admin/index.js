@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-  router.post("/newplayer/:newnames", (req, res) => {
+  router.post("/newplayer/:newname", (req, res) => {
     console.log("hey, routes working!");
   })
 

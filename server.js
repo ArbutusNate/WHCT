@@ -1,8 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const adminRoutes = require("./routes/admin/admin.js");
-const userRoutes = require("./routes/user/user.js")
+// const adminRoutes = require("./routes/admin/admin.js");
+// const userRoutes = require("./routes/user/user.js");
+const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -12,7 +13,7 @@ app.use(bodyParser.json());
 // Serve up static assets
 app.use(express.static("client/build"));
 // Add routes, both API and view
-app.use(adminRoutes);
+app.use(routes);
 
 
 // Set up promises with mongoose
