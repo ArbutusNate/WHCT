@@ -7,13 +7,25 @@ import MainView from './components/MainView';
 
 class App extends Component {
   state = {
-    userStatus: ''
+    userStatus: '',
+    view: 'tournament'
+  }
+
+  handleViewChange = (e) => {
+    console.log("trying to change view");
+    console.log(e.target);
+    this.setState({
+      view: e.target.attributes.view.value
+    })
   }
 
   render() {
     return (
       <BrowserRouter>
-        <MainView />
+        <MainView
+          {...this.state}
+          handleViewChange={this.handleViewChange}
+        />
       </BrowserRouter>
     );
   }

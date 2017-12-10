@@ -43,27 +43,27 @@ class TourneyZone extends Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault();
-    switch(this.state.mode) {
-      case "nope":
-        console.log("saving new player");
-        let playername = e.target.newplayername.value;
-        Axios.post(`/admin/newplayer/${playername}`)
-          .then(res => {
-            console.log(res);
-          })
-          .catch(error => {
-            console.log(error);
-          })
-        break;
-      case "BestOfThree":
-        console.log("saving Bo3 tournament results");
-        break;
-      case "BestOfFive":
-        console.log("saving Bo5 tournament results");
-        break;
-      default:
-        console.log("ummmm whut?");
-        break;
+    if(this.state.mode === "nope") {
+      console.log("saving new player");
+      let playername = e.target.newplayername.value;
+      Axios.post(`/admin/newplayer/${playername}`)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
+     else if(this.state.mode === "BestOfThree" || "BestOfFive") {
+      console.log("saving tournament results");
+      let tourneyInfo = {};
+      Axios.post(`/admin/saverecord/${tourneyInfo}`)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(error => {
+          console.log(error);
+        })
     }
   }
 
@@ -97,6 +97,14 @@ class TourneyZone extends Component {
               resetTourney={this.resetTourney}
             />
           }
+          {this.state.mode === "BestOfThree" &&
+            <BestOfFiveOptions
+              handleChange={this.handleModeChange}
+              updateScore={this.updateScore}
+              resetTourney={this.resetTourney}
+            />
+          }
+          <input type="submit" />
         </form>
         <TourneyDecider {...this.state} />
       </div>

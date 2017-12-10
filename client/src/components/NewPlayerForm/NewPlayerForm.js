@@ -4,8 +4,7 @@ import './NewPlayerForm.css';
 const NewPlayerForm = props =>
 
   <div>
-    <input name="newplayername" type="text" />
-    <input type="submit" />
+    <input name="newplayername" placeholder="Enter New Players Name" type="text" />
   </div>
 
 export default NewPlayerForm;

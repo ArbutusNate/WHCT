@@ -5,14 +5,17 @@ import TourneyZone from '../TourneyZone';
 import './MainView.css';
 
 class MainView extends Component {
+
   render () {
    return (
     <div className="background">
-      <Header />
+      <Header handleViewChange={this.props.handleViewChange}/>
       <div className="header-pad"></div>
       <div>
         <Social />
-        <TourneyZone />
+        {this.props.view === 'tournament' &&
+          <TourneyZone />
+        }
       </div>
     </div>
    )

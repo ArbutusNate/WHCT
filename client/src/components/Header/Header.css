@@ -6,13 +6,17 @@
   text-align: center;
   top: 0px;
   left: 0px;
-  line-height: 32.5px;
+  line-height: 20px;
   background: #8e0d01; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(#8e0d01, #8e0d01,  #0e0d0d); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#8e0d01, #8e0d01,  #0e0d0d); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(#8e0d01, #8e0d01,  #0e0d0d); /* For Firefox 3.6 to 15 */
   background: linear-gradient(#8e0d01, #8e0d01,  #0e0d0d); /* Standard syntax */
-  z-index: -1;
+  z-index: 2;
+}
+
+.title-box {
+  width: 80%;
 }
 
 .brand {
@@ -24,4 +28,24 @@
 
 h1 {
   font-family: 'Overlock SC', cursive;
+}
+
+nav {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 10;
+}
+
+.nav-button {
+  height: 100%;
+  width: 200px;
+  line-height: 65px;
+  float:left;
+  z-index: 2;
+  margin: 0px 15px;
+}
+
+.nav-button:hover {
+  cursor: pointer;
 }
