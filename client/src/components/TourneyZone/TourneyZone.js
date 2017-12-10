@@ -45,8 +45,9 @@ class TourneyZone extends Component {
     e.preventDefault();
     if(this.state.mode === "nope") {
       console.log("saving new player");
-      let playername = e.target.newplayername.value;
-      Axios.post(`/admin/newplayer/${playername}`)
+      let playerName = e.target.newplayername.value;
+      let ytLink = e.target.newplayeryt.value;
+      Axios.post(`http://localhost:3001/admin/newplayer/${playerName}/${ytLink}`)
         .then(res => {
           console.log(res);
         })

@@ -5,9 +5,9 @@ import BestOfFive from '../BestOfFive';
 const TourneyDecider = props => {
   switch(props.mode) {
     case "BestOfThree":
-      return <p>best of three</p>
+      return <BestOfFive {...props} bestOf={3} />
     case "BestOfFive":
-      return <BestOfFive {...props} />
+      return <BestOfFive {...props} bestOf={5} />
     default:
       return <p>no tourney</p>
   }
