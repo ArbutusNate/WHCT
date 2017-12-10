@@ -105,7 +105,7 @@ class TourneyZone extends Component {
               resetTourney={this.resetTourney}
             />
           }
-          <input type="submit" />
+          <input className="admin-submit" type="submit" />
         </form>
         <TourneyDecider {...this.state} />
       </div>

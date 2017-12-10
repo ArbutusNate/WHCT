@@ -11,8 +11,16 @@
   margin-left: 20px;
 }
 
+.form-control input {
+  margin-left: 20px;
+}
+
 .form-control button {
   margin-left: 20px;
+}
+
+.admin-submit {
+  margin-top: 15px;
 }
 
 .mode-select {
