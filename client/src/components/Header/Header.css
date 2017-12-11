@@ -39,7 +39,7 @@ nav {
 
 .nav-button {
   height: 100%;
-  width: 200px;
+  /*width: 200px;*/
   line-height: 65px;
   float:left;
   z-index: 2;
