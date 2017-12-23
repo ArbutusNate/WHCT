@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from '../Header';
 import Social from '../Social';
 import TourneyZone from '../TourneyZone';
+import RecordZone from '../RecordZone';
 import './MainView.css';
 
 class MainView extends Component {
@@ -15,6 +16,9 @@ class MainView extends Component {
         <Social />
         {this.props.view === 'tournament' &&
           <TourneyZone />
+        }
+        {this.props.view === 'records' &&
+          <RecordZone />
         }
       </div>
     </div>

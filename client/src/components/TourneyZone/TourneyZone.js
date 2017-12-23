@@ -31,6 +31,13 @@ class TourneyZone extends Component {
     })
   }
 
+  updateTitle = (e) => {
+    e.preventDefault();
+    // this.setState({
+      tourneyTitle: e.target.value
+    // })
+  }
+
   resetTourney = (e) => {
     e.preventDefault();
     this.setState({
@@ -42,6 +49,9 @@ class TourneyZone extends Component {
   }
 
   handleFormSubmit = (e) => {
+    // let config = {
+    //   baseURL: 'http://localhost:3001/'
+    // }
     e.preventDefault();
     if(this.state.mode === "nope") {
       console.log("saving new player");
@@ -57,8 +67,13 @@ class TourneyZone extends Component {
     }
      else if(this.state.mode === "BestOfThree" || "BestOfFive") {
       console.log("saving tournament results");
-      let tourneyInfo = {};
-      Axios.post(`/admin/saverecord/${tourneyInfo}`)
+      // let tourneyInfo = {};
+      Axios.post(`http://localhost:3001/admin/saverecord`,
+        {params: {
+          title: this.state.tourneyTitle,
+          type: this.state.mode
+        }}
+      )
         .then(res => {
           console.log(res);
         })
@@ -96,6 +111,7 @@ class TourneyZone extends Component {
               handleChange={this.handleModeChange}
               updateScore={this.updateScore}
               resetTourney={this.resetTourney}
+              updateTitle={this.updateTitle}
             />
           }
           {this.state.mode === "BestOfThree" &&
@@ -103,6 +119,7 @@ class TourneyZone extends Component {
               handleChange={this.handleModeChange}
               updateScore={this.updateScore}
               resetTourney={this.resetTourney}
+              updateTitle={this.updateTitle}
             />
           }
           <input className="admin-submit" type="submit" />

@@ -12,7 +12,6 @@ class App extends Component {
   }
 
   handleViewChange = (e) => {
-    console.log("trying to change view");
     console.log(e.target);
     this.setState({
       view: e.target.attributes.view.value

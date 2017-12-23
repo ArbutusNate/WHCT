@@ -7,14 +7,30 @@ const axios = require("axios");
 
   router.post("/newplayer/:playerName/:ytLink?", (req, res) => {
     console.log(`playerName:${req.params.playerName} ylLink:${req.params.ytLink}`);
-    Player.create([{"name": req.params.playerName}, {"link": req.params.ytLink}], (err, result) => {
-      if(err) {
-        return console.log(err);
+    // Player.create([{name: req.params.playerName}], (err, result) => {
+    //   if(err) {
+    //     console.log(err);
+    //   } else {
+    //     console.log("creating new player in DB");
+    //     res.json(result);
+    //   }
+    // })
+    Player.findOneAndUpdate({name: req.params.playerName}, {link:req.params.ytLink}, {upsert: true, new: true}, (error, result) => {
+      if(!error) {
+        console.log(error);
       } else {
+        console.log("creating new player in DB");
         res.json(result);
-        console.log("creating new player in DB")
       }
     })
+  })
+
+  router.post("/saverecord/:tournInfo", (req, res) => {
+    console.log(req.params.tournInfo);
+  })
+
+  router.get("/getplayerinfo", (req, res) => {
+    console.log("trying to get all player info");
   })
 
 

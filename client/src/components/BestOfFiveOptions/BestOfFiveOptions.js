@@ -3,6 +3,7 @@ import React from 'react';
 const BestOfFiveOptions = props =>
 
   <div>
+    <input type="text" placeholder="Name this tournament" onChange={props.updateTitle}></input>
     <select name="player1" onChange={props.handleChange}>
       <option value="default"> Choose Player 1 </option>
       <option value="Turin"> Turin </option>
