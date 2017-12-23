@@ -17,10 +17,10 @@ const axios = require("axios");
     // })
     Player.findOneAndUpdate({name: req.params.playerName}, {link:req.params.ytLink}, {upsert: true, new: true}, (error, result) => {
       if(!error) {
-        console.log(error);
-      } else {
-        console.log("creating new player in DB");
         res.json(result);
+        return console.log("creating new player in DB");
+      } else {
+        return console.log(error);
       }
     })
   })
