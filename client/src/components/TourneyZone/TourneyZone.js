@@ -124,7 +124,13 @@ class TourneyZone extends Component {
           }
           <input className="admin-submit" type="submit" />
         </form>
-        <TourneyDecider {...this.state} />
+        <TourneyDecider
+          mode={this.state.mode}
+          player1={this.state.player1}
+          player2={this.state.player2}
+          player1wins={this.state.player1wins}
+          player2wins={this.state.player2wins}
+        />
       </div>
     )
   }

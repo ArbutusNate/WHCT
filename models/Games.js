@@ -8,6 +8,10 @@ var GameSchema = new Schema({
     ref: "Tournament"
   },
 
+  gameNumber: {
+    type: Number
+  },
+
   players: [{
       type: Schema.Types.ObjectId,
       ref: "Player"
