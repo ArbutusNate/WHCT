@@ -31,6 +31,13 @@ class TourneyZone extends Component {
     })
   }
 
+  handleLiveTournament = (e) => {
+    e.preventDefault();
+    this.setState({
+      live: true
+    })
+  }
+
   updateTitle = (e) => {
     e.preventDefault();
     // this.setState({
@@ -108,6 +115,8 @@ class TourneyZone extends Component {
           }
           {this.state.mode === "BestOfFive" &&
             <BestOfFiveOptions
+              handleLiveTournament={this.handleLiveTournament}
+              tourneyState={this.state.live}
               handleChange={this.handleModeChange}
               updateScore={this.updateScore}
               resetTourney={this.resetTourney}
@@ -116,13 +125,14 @@ class TourneyZone extends Component {
           }
           {this.state.mode === "BestOfThree" &&
             <BestOfFiveOptions
+              handleLiveTournament={this.handleLiveTournament}
+              tourneyState={this.state.live}
               handleChange={this.handleModeChange}
               updateScore={this.updateScore}
               resetTourney={this.resetTourney}
               updateTitle={this.updateTitle}
             />
           }
-          <input className="admin-submit" type="submit" />
         </form>
         <TourneyDecider
           mode={this.state.mode}

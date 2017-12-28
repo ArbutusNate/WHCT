@@ -3,7 +3,7 @@ var Schema = mongoose.Schema
 
 var GameSchema = new Schema({
 
-  inTournament: {
+  tournament: {
     type: Schema.Types.ObjectId,
     ref: "Tournament"
   },
@@ -12,9 +12,24 @@ var GameSchema = new Schema({
     type: Number
   },
 
-  players: [{
-      type: Schema.Types.ObjectId,
-      ref: "Player"
+  player1: [{
+      name: {
+        type: Schema.Types.ObjectId,
+        ref: "Player"
+        },
+      faction: {
+        type: String
+      },
+    }],
+
+  player2: [{
+      name: {
+        type: Schema.Types.ObjectId,
+        ref: "Player"
+        },
+      faction: {
+        type: String
+      }
     }],
 
   winner: [{

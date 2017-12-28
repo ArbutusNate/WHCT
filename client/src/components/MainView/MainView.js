@@ -4,8 +4,16 @@ import Social from '../Social';
 import TourneyZone from '../TourneyZone';
 import RecordZone from '../RecordZone';
 import './MainView.css';
+import openSocket from 'socket.io-client';
+const socket = openSocket(process.env.PORT || `http://localhost:3001`);
 
 class MainView extends Component {
+
+  componentDidMount() {
+    // socket.on('live', response => {
+    //   console.log('connected from MainView');
+    // })
+  }
 
   render () {
    return (

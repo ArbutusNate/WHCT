@@ -25,13 +25,4 @@ const axios = require("axios");
     })
   })
 
-  router.post("/saverecord/:tournInfo", (req, res) => {
-    console.log(req.params.tournInfo);
-  })
-
-  router.get("/getplayerinfo", (req, res) => {
-    console.log("trying to get all player info");
-  })
-
-
 module.exports = router;

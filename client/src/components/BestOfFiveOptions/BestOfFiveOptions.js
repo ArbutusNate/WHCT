@@ -14,9 +14,11 @@ const BestOfFiveOptions = props =>
       <option value="Loremaster of Sotek"> Loremaster of Sotek </option>
       <option value="ItalianSpartacus"> ItalianSpartacus </option>
     </select>
+    <button onClick={props.resetTourney}> Reset </button>
+    <button onClick={props.handleLiveTournament}> Go Live! </button>
     <button name="player1wins" onClick={props.updateScore}>Player 1 Win</button>
     <button name="player2wins" onClick={props.updateScore}>Player 2 Win</button>
-    <button onClick={props.resetTourney}> Reset </button>
+    <input type="submit" value="Save Tournament" />
   </div>
 
 

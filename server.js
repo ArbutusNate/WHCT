@@ -37,19 +37,29 @@ mongoose.connect(
   }
 );
 // Start the API server
-const server = app.listen(PORT, () => {
+var server = app.listen(PORT, () => {
     console.log(`🌎 Our app is running on port ${ PORT }`);
 });
-// const server = app.set(PORT, function() {
-//   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-// });
 
-const io = require('socket.io')(server);
+var io = require('socket.io')(server);
 
-io.on('connection', socket => {
-  socket.on('connection', object => {
-    console.log("n received")
-    console.log(object);
-  })
+  console.log(`trying for socket`);
 
-});
+  io.on('connection', client => {
+    console.log("socket?");
+    client.on('connection-error', error => {
+      console.log(`There is an issue connecting (connection-error)`);
+      console.log(error);
+    })
+    client.on('error', error => {
+      console.log(`There is an issue connecting to (error)`);
+      console.log(error);
+    })
+    client.on('live', object => {
+      console.log("connected to 'live'.")
+      console.log(object);
+    })
+  });
+
+  server.listen(PORT);
+
