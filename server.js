@@ -46,18 +46,22 @@ var io = require('socket.io')(server);
   console.log(`trying for socket`);
 
   io.on('connection', client => {
-    console.log("socket?");
-    client.on('connection-error', error => {
-      console.log(`There is an issue connecting (connection-error)`);
-      console.log(error);
-    })
-    client.on('error', error => {
-      console.log(`There is an issue connecting to (error)`);
-      console.log(error);
-    })
-    client.on('live', object => {
-      console.log("connected to 'live'.")
-      console.log(object);
+    console.log("client connected to 'connection'");
+    // client.on('connection-error', error => {
+    //   console.log(`There is an issue connecting (connection-error)`);
+    //   console.log(error);
+    // })
+    // client.on('error', error => {
+    //   console.log(`There is an issue connecting to (error)`);
+    //   console.log(error);
+    // })
+    client.on('live', (object) => {
+      let currentTourneys = {};
+      console.log("incoming live tournament to 'live'.")
+      // console.log(object);
+      client.emit('live list', object, () => {
+        console.log(`emitted new ${object}`);
+      });
     })
   });
 

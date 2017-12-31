@@ -3,7 +3,7 @@ var Schema = mongoose.Schema
 
 var TournamentSchema = new Schema({
 
-  title: {
+  name: {
     type: String
   },
 
@@ -26,7 +26,7 @@ var TournamentSchema = new Schema({
     }],
 
   players: [{
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.String,
       ref: "Player"
     }]
 

@@ -10,9 +10,14 @@ const socket = openSocket(process.env.PORT || `http://localhost:3001`);
 class MainView extends Component {
 
   componentDidMount() {
-    // socket.on('live', response => {
-    //   console.log('connected from MainView');
-    // })
+    console.log(`attempting to connect to 'live' socket`)
+    socket.on('live', response => {
+      console.log('change from server');
+      console.log(response);
+    })
+    socket.on('live list', response => {
+      alert(response);
+    })
   }
 
   render () {

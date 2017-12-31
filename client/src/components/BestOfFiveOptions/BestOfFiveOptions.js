@@ -3,7 +3,8 @@ import React from 'react';
 const BestOfFiveOptions = props =>
 
   <div>
-    <input type="text" placeholder="Name this tournament" onChange={props.updateTitle}></input>
+    <input type="text" placeholder="Name this tournament" name="tName"onChange={props.handleChange}></input>
+
     <select name="player1" onChange={props.handleChange}>
       <option value="default"> Choose Player 1 </option>
       <option value="Turin"> Turin </option>
@@ -14,8 +15,10 @@ const BestOfFiveOptions = props =>
       <option value="Loremaster of Sotek"> Loremaster of Sotek </option>
       <option value="ItalianSpartacus"> ItalianSpartacus </option>
     </select>
+
     <button onClick={props.resetTourney}> Reset </button>
-    <button onClick={props.handleLiveTournament}> Go Live! </button>
+    <button onClick={props.socketGoLive}> Go Live! </button>
+
     <button name="player1wins" onClick={props.updateScore}>Player 1 Win</button>
     <button name="player2wins" onClick={props.updateScore}>Player 2 Win</button>
     <input type="submit" value="Save Tournament" />

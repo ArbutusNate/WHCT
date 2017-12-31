@@ -4,14 +4,23 @@ import TourneyDecider from '../TourneyDecider';
 import BestOfFiveOptions from '../BestOfFiveOptions';
 import NewPlayerForm from '../NewPlayerForm';
 import './TourneyZone.css';
+import openSocket from 'socket.io-client';
+const socket = openSocket(process.env.PORT || `http://localhost:3001`);
 
 class TourneyZone extends Component {
   constructor(props) {
     super(props)
+    // var socket = this.props.socket;
     this.state = {
       mode: "nope",
       player1: "Choose Player 1",
-      player2: "Choose Player 2"
+      player2: "Choose Player 2",
+      player1wins: 0,
+      player2wins: 0,
+      player1faction: 'not yet...',
+      player2faction: 'gotta add dropdowns...',
+      tName: 'unnamed',
+      link: 'gotta add this'
     }
   }
 
@@ -29,13 +38,28 @@ class TourneyZone extends Component {
     this.setState({
       [e.target.name]: this.state[e.target.name] + 1
     })
+    // socket.emit
   }
 
-  handleLiveTournament = (e) => {
+  Tournament = (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, link) => {
+    return {
+      name,
+      type,
+      p1,
+      p1Faction,
+      p1Score,
+      p2,
+      p2Faction,
+      p2Score
+    }
+  }
+
+  socketGoLive = (e) => {
     e.preventDefault();
-    this.setState({
-      live: true
-    })
+    // (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score)
+    let liveTourney = this.Tournament(this.state.tName, this.state.mode, this.state.player1, `p1 faction`, this.state.player1wins, this.state.player2, `p2 faction`, this.state.player2wins, 'youtube link');
+    // console.log(liveTourney);
+    socket.emit('live', liveTourney);
   }
 
   updateTitle = (e) => {
@@ -56,9 +80,6 @@ class TourneyZone extends Component {
   }
 
   handleFormSubmit = (e) => {
-    // let config = {
-    //   baseURL: 'http://localhost:3001/'
-    // }
     e.preventDefault();
     if(this.state.mode === "nope") {
       console.log("saving new player");
@@ -72,32 +93,40 @@ class TourneyZone extends Component {
           console.log(error);
         })
     }
-     else if(this.state.mode === "BestOfThree" || "BestOfFive") {
+    else if(this.state.mode === "BestOfThree" || "BestOfFive") {
       console.log("saving tournament results");
       // let tourneyInfo = {};
-      Axios.post(`http://localhost:3001/admin/saverecord`,
-        {params: {
-          title: this.state.tourneyTitle,
-          type: this.state.mode
-        }}
+      Axios.post(`http://localhost:3001/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.player1}/${this.state.player2}/${this.state.link}`
+        // ,
+        // {params: {
+        //   name: this.state.tName,
+        //   type: this.state.mode,
+        //   p1: this.state.player1,
+        //   p2: this.state.player2,
+        //   link: this.state.link
+        //   // p1S: this.state.player1wins,
+        //   // p2S: this.state.player2wins,
+        //   // p1Faction: this.state.player1faction,
+        //   // p2Faction: this.state.player2faction
+        // }}
       )
-        .then(res => {
-          console.log(res);
-        })
-        .catch(error => {
-          console.log(error);
-        })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+      })
     }
   }
 
-  componentDidMount = () => {
-    this.setState({
-      player1: "Choose Player 1",
-      player2: "Choose Player 2",
-      player1wins: 0,
-      player2wins: 0
-    })
-  }
+  // componentDidMount = () => {
+  //   this.setState({
+  //     player1: "Choose Player 1",
+  //     player2: "Choose Player 2",
+  //     player1wins: 0,
+  //     player2wins: 0
+  //   })
+  // }
 
   render() {
     return (
@@ -121,6 +150,7 @@ class TourneyZone extends Component {
               updateScore={this.updateScore}
               resetTourney={this.resetTourney}
               updateTitle={this.updateTitle}
+              socketGoLive={this.socketGoLive}
             />
           }
           {this.state.mode === "BestOfThree" &&
@@ -131,6 +161,7 @@ class TourneyZone extends Component {
               updateScore={this.updateScore}
               resetTourney={this.resetTourney}
               updateTitle={this.updateTitle}
+              socketGoLive={this.socketGoLive}
             />
           }
         </form>
