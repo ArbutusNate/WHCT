@@ -6,7 +6,7 @@ import NewPlayerForm from '../NewPlayerForm';
 import './TourneyZone.css';
 import openSocket from 'socket.io-client';
 const socket = openSocket(
-  // process.env.PORT || `http://localhost:3001`
+  process.env.PORT || `http://localhost:3001`
   );
 
 class TourneyZone extends Component {
