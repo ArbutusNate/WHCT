@@ -37,7 +37,8 @@ mongoose.connect(
   }
 );
 // Start the API server
-var server = app.listen(PORT, () => {
+const server = express()
+  .listen(PORT, () => {
     console.log(`🌎 Our app is running on port ${ PORT }`);
 });
 

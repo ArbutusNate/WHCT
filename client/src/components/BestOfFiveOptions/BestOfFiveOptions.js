@@ -1,4 +1,5 @@
 import React from 'react';
+import BestOfFiveGameOptions from '../BestOfFiveGameOptions';
 
 const BestOfFiveOptions = props =>
 
@@ -16,12 +17,14 @@ const BestOfFiveOptions = props =>
       <option value="ItalianSpartacus"> ItalianSpartacus </option>
     </select>
 
+
     <button onClick={props.resetTourney}> Reset </button>
     <button onClick={props.socketGoLive}> Go Live! </button>
 
-    <button name="player1wins" onClick={props.updateScore}>Player 1 Win</button>
-    <button name="player2wins" onClick={props.updateScore}>Player 2 Win</button>
-    <input type="submit" value="Save Tournament" />
+    {props.isLive === true &&
+      <BestOfFiveGameOptions {...props} />
+    }
+
   </div>
 
 
