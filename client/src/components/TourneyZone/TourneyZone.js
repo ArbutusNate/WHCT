@@ -6,7 +6,7 @@ import NewPlayerForm from '../NewPlayerForm';
 import './TourneyZone.css';
 import openSocket from 'socket.io-client';
 const socket = openSocket(
-  process.env.PORT || `http://localhost:3001`
+  // process.env.PORT || `http://localhost:3001`
   );
 
 class TourneyZone extends Component {
@@ -37,10 +37,12 @@ class TourneyZone extends Component {
 
   updateScore = (e) => {
     e.preventDefault();
-    let gameNumber = this.state.player1wins + this.state.player2wins;
+    let gameNumber = this.state.player1wins + this.state.player2wins + 1;
     console.log(`Adding 1 win to ${e.target.name}`);
+    let winner = e.target.name;
+    let tId = this.state.currentTourneyId;
     // Outgoing Params: tName, gameNumber, player1, player1faction, player2, player2faction, winner, loser.
-    Axios.post(`/admin/savegame/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}`)
+    Axios.post(`/admin/savegame/${tId}/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}/${winner}`)
     this.setState({
       [e.target.name]: this.state[e.target.name] + 1,
       player1faction: 'default',
@@ -63,6 +65,7 @@ class TourneyZone extends Component {
   }
 
   socketGoLive = (e) => {
+    this.handleFormSubmit(e);
     e.preventDefault();
     // (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score)
     this.setState({
@@ -88,7 +91,7 @@ class TourneyZone extends Component {
     if(this.state.mode === "nope") {
       console.log("saving new player");
       let playerName = e.target.newplayername.value;
-      let ytLink = e.target.newplayeryt.value;
+      let ytLink = encodeURIComponent(e.target.newplayeryt.value);
       Axios.post(`/admin/newplayer/${playerName}/${ytLink}`)
         .then(res => {
           console.log(res);
@@ -103,6 +106,9 @@ class TourneyZone extends Component {
       Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}`)
       .then(res => {
         console.log(res);
+        this.setState({
+          currentTourneyId: res.data._id
+        })
       })
       .catch(error => {
         console.log(error);
@@ -110,14 +116,15 @@ class TourneyZone extends Component {
     }
   }
 
-  // componentDidMount = () => {
-  //   this.setState({
-  //     player1: "Choose Player 1",
-  //     player2: "Choose Player 2",
-  //     player1wins: 0,
-  //     player2wins: 0
-  //   })
-  // }
+  componentDidMount = () => {
+    Axios.get(`/admin/getcompetitors`)
+    .then((res) => {
+      console.log(res.data);
+      this.setState({
+        'playerList': res.data
+      })
+    })
+  }
 
   render() {
     return (
@@ -146,6 +153,7 @@ class TourneyZone extends Component {
               player2={this.state.player2}
               player1faction={this.state.player1faction}
               player2faction={this.state.player2faction}
+              playerList={this.state.playerList}
             />
           }
           {this.state.mode === "BestOfThree" &&
@@ -161,6 +169,7 @@ class TourneyZone extends Component {
               player2={this.state.player2}
               player1faction={this.state.player1faction}
               player2faction={this.state.player2faction}
+              playerList={this.state.playerList}
             />
           }
         </form>

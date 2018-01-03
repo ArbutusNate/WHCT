@@ -14,7 +14,7 @@ var GameSchema = new Schema({
 
   player1: [{
       name: {
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: "Player"
         },
       faction: {
@@ -27,7 +27,7 @@ var GameSchema = new Schema({
 
   player2: [{
       name: {
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: "Player"
         },
       faction: {

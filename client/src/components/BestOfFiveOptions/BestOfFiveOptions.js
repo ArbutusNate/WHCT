@@ -1,5 +1,7 @@
 import React from 'react';
 import BestOfFiveGameOptions from '../BestOfFiveGameOptions';
+import DropDownOption from '../DropDownOption';
+
 
 const BestOfFiveOptions = props =>
 
@@ -8,13 +10,11 @@ const BestOfFiveOptions = props =>
 
     <select name="player1" onChange={props.handleChange}>
       <option value="default"> Choose Player 1 </option>
-      <option value="Turin"> Turin </option>
-      <option value="JonTaun"> JonTaun </option>
+      <DropDownOption playerList={props.playerList}/>
     </select>
     <select name="player2" onChange={props.handleChange}>
       <option value="default"> Choose Player 2 </option>
-      <option value="Loremaster of Sotek"> Loremaster of Sotek </option>
-      <option value="ItalianSpartacus"> ItalianSpartacus </option>
+      <DropDownOption playerList={props.playerList}/>
     </select>
 
 

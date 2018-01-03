@@ -41,7 +41,38 @@ const axios = require("axios");
   });
 
   // Incoming Params: tName, gameNumber, player1, player1faction, player2, player2faction, winner, loser.
-  router.post(`/savegame/:tName/:gameNumber/:player1/:player1faction/:player2/:player2faction/:winner/:loser`)
+  router.post(`/savegame/:tId/:tName/:gameNumber/:player1/:player1faction/:player2/:player2faction/:winner/`, (req, res) => {
+    let data = [
+      {'tournament': req.params.tId},
+      {'gameNumber': req.params.gameNumber},
+      {'player1':
+        {'name': req.params.player1}
+        // {'faction': req.params.player1faction}
+      },
+      {'player2':
+        {'name': req.params.player2}
+        // {'faction': req.params.player2faction}
+      }
+    ]
+    Game.create(data, (error, result) => {
+      if(!error){
+        res.json(result);
+        return console.log(`Adding this game to database`);
+      } else {
+        return console.log(error);
+      }
+    })
+  })
+
+  router.get(`/getcompetitors`, (req, res) => {
+    console.log('hitting /getcompetitors');
+    Player.find((error, players) => {
+      if(!error){
+        res.json(players);
+        return console.log('getting all players')
+      }
+    })
+  })
 
 
 module.exports = router;
