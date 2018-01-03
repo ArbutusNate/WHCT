@@ -40,7 +40,7 @@ class TourneyZone extends Component {
     let gameNumber = this.state.player1wins + this.state.player2wins;
     console.log(`Adding 1 win to ${e.target.name}`);
     // Outgoing Params: tName, gameNumber, player1, player1faction, player2, player2faction, winner, loser.
-    Axios.post(`http://localhost:3001/admin/savegame/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}`)
+    Axios.post(`/admin/savegame/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}`)
     this.setState({
       [e.target.name]: this.state[e.target.name] + 1,
       player1faction: 'default',
@@ -89,7 +89,7 @@ class TourneyZone extends Component {
       console.log("saving new player");
       let playerName = e.target.newplayername.value;
       let ytLink = e.target.newplayeryt.value;
-      Axios.post(`http://localhost:3001/admin/newplayer/${playerName}/${ytLink}`)
+      Axios.post(`/admin/newplayer/${playerName}/${ytLink}`)
         .then(res => {
           console.log(res);
         })
@@ -100,7 +100,7 @@ class TourneyZone extends Component {
     else if(this.state.mode === "BestOfThree" || "BestOfFive") {
       console.log("saving tournament results");
       // let tourneyInfo = {};
-      Axios.post(`http://localhost:3001/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}`)
+      Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}`)
       .then(res => {
         console.log(res);
       })
