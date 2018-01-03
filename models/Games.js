@@ -20,6 +20,9 @@ var GameSchema = new Schema({
       faction: {
         type: String
       },
+      isWinner: {
+        type: Boolean
+      }
     }],
 
   player2: [{
@@ -29,6 +32,9 @@ var GameSchema = new Schema({
         },
       faction: {
         type: String
+      },
+      isWinner: {
+        type: Boolean
       }
     }],
 

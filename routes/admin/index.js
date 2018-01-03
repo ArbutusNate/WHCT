@@ -40,4 +40,8 @@ const axios = require("axios");
     )
   });
 
+  // Incoming Params: tName, gameNumber, player1, player1faction, player2, player2faction, winner, loser.
+  router.post(`/savegame/:tName/:gameNumber/:player1/:player1faction/:player2/:player2faction/:winner/:loser`)
+
+
 module.exports = router;

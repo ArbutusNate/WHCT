@@ -37,7 +37,10 @@ class TourneyZone extends Component {
 
   updateScore = (e) => {
     e.preventDefault();
-    console.log(`Adding 1 win to ${e.target.name}`)
+    let gameNumber = this.state.player1wins + this.state.player2wins;
+    console.log(`Adding 1 win to ${e.target.name}`);
+    // Outgoing Params: tName, gameNumber, player1, player1faction, player2, player2faction, winner, loser.
+    Axios.post(`http://localhost:3001/admin/savegame/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}`)
     this.setState({
       [e.target.name]: this.state[e.target.name] + 1,
       player1faction: 'default',
@@ -65,7 +68,7 @@ class TourneyZone extends Component {
     this.setState({
       isLive: true
     })
-    let liveTourney = this.Tournament(this.state.tName, this.state.mode, this.state.player1, `p1 faction`, this.state.player1wins, this.state.player2, `p2 faction`, this.state.player2wins, 'youtube link');
+    let liveTourney = this.Tournament(this.state.tName, this.state.mode, this.state.player1, this.state.player1faction, this.state.player1wins, this.state.player2, this.state.player2faction, this.state.player2wins, 'youtube link');
     // console.log(liveTourney);
     socket.emit('live', liveTourney);
   }
@@ -97,20 +100,7 @@ class TourneyZone extends Component {
     else if(this.state.mode === "BestOfThree" || "BestOfFive") {
       console.log("saving tournament results");
       // let tourneyInfo = {};
-      Axios.post(`http://localhost:3001/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}`
-        // ,
-        // {params: {
-        //   name: this.state.tName,
-        //   type: this.state.mode,
-        //   p1: this.state.player1,
-        //   p2: this.state.player2,
-        //   link: this.state.link
-        //   // p1S: this.state.player1wins,
-        //   // p2S: this.state.player2wins,
-        //   // p1Faction: this.state.player1faction,
-        //   // p2Faction: this.state.player2faction
-        // }}
-      )
+      Axios.post(`http://localhost:3001/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}`)
       .then(res => {
         console.log(res);
       })

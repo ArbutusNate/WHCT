@@ -11,8 +11,27 @@ var PlayerSchema = new Schema({
     type: String
   },
 
-  record: {
-    type: String
+  tRecord: {
+    wins: {
+      type: Number
+    },
+    losses: {
+      type: Number
+    }
+  },
+
+  gRecord: {
+    wins: {
+      type: Number
+    },
+    losses: {
+      type: Number
+    }
+  },
+
+  history: {
+    type: Schema.Types.ObjectId,
+    ref: "Game"
   }
 
 })
