@@ -65,12 +65,25 @@ class TourneyZone extends Component {
   }
 
   socketGoLive = (e) => {
+    if(this.state.tName === ""){
+      return console.log(`Tournament Needs a Name`);
+    }
     this.handleFormSubmit(e);
     e.preventDefault();
     // (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score)
     this.setState({
       isLive: true
     })
+    Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}/${this.state.isLive}`)
+      .then(res => {
+        console.log(res);
+        this.setState({
+          currentTourneyId: res.data._id
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      })
     let liveTourney = this.Tournament(this.state.tName, this.state.mode, this.state.player1, this.state.player1faction, this.state.player1wins, this.state.player2, this.state.player2faction, this.state.player2wins, 'youtube link');
     // console.log(liveTourney);
     socket.emit('live', liveTourney);
@@ -94,29 +107,31 @@ class TourneyZone extends Component {
       let ytLink = encodeURIComponent(e.target.newplayeryt.value);
       Axios.post(`/admin/newplayer/${playerName}/${ytLink}`)
         .then(res => {
+          this.getCompetitors();
           console.log(res);
         })
         .catch(error => {
           console.log(error);
         })
     }
-    else if(this.state.mode === "BestOfThree" || "BestOfFive") {
-      console.log("saving tournament results");
-      // let tourneyInfo = {};
-      Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}`)
-      .then(res => {
-        console.log(res);
-        this.setState({
-          currentTourneyId: res.data._id
-        })
-      })
-      .catch(error => {
-        console.log(error);
-      })
-    }
+    // else if(this.state.mode === "BestOfThree" || "BestOfFive") {
+    //   console.log("saving tournament results");
+    //   // let tourneyInfo = {};
+    //   Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}`)
+    //   .then(res => {
+    //     console.log(res);
+    //     this.setState({
+    //       currentTourneyId: res.data._id
+    //     })
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   })
+    // }
   }
 
-  componentDidMount = () => {
+  getCompetitors = () => {
+    // e.preventDefault();
     Axios.get(`/admin/getcompetitors`)
     .then((res) => {
       console.log(res.data);
@@ -124,6 +139,10 @@ class TourneyZone extends Component {
         'playerList': res.data
       })
     })
+  }
+
+  componentDidMount = () => {
+    this.getCompetitors();
   }
 
   render() {

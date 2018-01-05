@@ -19,7 +19,10 @@ const BestOfFiveOptions = props =>
 
 
     <button onClick={props.resetTourney}> Reset </button>
-    <button onClick={props.socketGoLive}> Go Live! </button>
+
+    {props.isLive === false &&
+      <button onClick={props.socketGoLive}> Go Live! </button>
+    }
 
     {props.isLive === true &&
       <BestOfFiveGameOptions {...props} />
