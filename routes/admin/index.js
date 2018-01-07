@@ -88,7 +88,6 @@ const axios = require("axios");
     Player.find((error, players) => {
       if(!error){
         res.json(players);
-        return console.log('getting all players')
       }
     })
   })

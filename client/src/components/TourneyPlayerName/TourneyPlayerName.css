@@ -5,3 +5,13 @@
   margin-right: 10px;
   /*margin: 10px 10px;*/
 }
+
+h4 {
+  float: left;
+}
+
+.b5-score {
+  float: right;
+  font-size: 60px;
+  margin: -17px 10px;
+}

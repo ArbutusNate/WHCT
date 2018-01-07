@@ -5,7 +5,7 @@ const BestOfFiveGameOptions = props =>
   <div>
 
     <select value={props.player1faction} name="player1faction" onChange={props.handleChange}>
-      <option value="default">Select Player 1 Faction</option>
+      <option value="default">Select {props.player1} Faction</option>
       <option value="Argwylon">Argwylon</option>
       <option value="Bordeleaux">Bordeleaux</option>
       <option value="Bretonnia">Bretonnia</option>
@@ -19,7 +19,7 @@ const BestOfFiveGameOptions = props =>
     </select>
 
     <select value={props.player2faction} name="player2faction" onChange={props.handleChange}>
-      <option value="default">Select Player 2 Faction</option>
+      <option value="default">Select {props.player2} Faction</option>
       <option value="Argwylon">Argwylon</option>
       <option value="Bordeleaux">Bordeleaux</option>
       <option value="Bretonnia">Bretonnia</option>

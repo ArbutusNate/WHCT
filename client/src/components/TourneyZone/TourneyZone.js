@@ -20,9 +20,9 @@ class TourneyZone extends Component {
       player2: "Choose Player 2",
       player1wins: 0,
       player2wins: 0,
-      player1faction: 'default',
-      player2faction: 'default',
-      tName: 'unnamed',
+      player1faction: '',
+      player2faction: '',
+      tName: 'New Best Of Tournament',
       link: 'gotta add this'
     }
   }
@@ -45,8 +45,8 @@ class TourneyZone extends Component {
     Axios.post(`/admin/savegame/${tId}/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}/${winner}`)
     this.setState({
       [e.target.name]: this.state[e.target.name] + 1,
-      player1faction: 'default',
-      player2faction: 'default'
+      player1faction: '',
+      player2faction: ''
     })
     // socket.emit
   }
@@ -150,12 +150,14 @@ class TourneyZone extends Component {
       <div className="tourney-zone">
         <h2 className="admin-controls"> Tournament Admin Controls </h2>
         <form className="form-control" onSubmit={this.handleFormSubmit}>
-          <select name="mode" className="mode-select"onChange={this.handleModeChange}>
-            <option value="nope"> Add New Player </option>
-            <option value="BestOfThree"> Best of Three </option>
-            <option value="BestOfFive"> Best of Five </option>
-            <option value="Bracket"> Bracket </option>
-          </select>
+          {this.state.isLive === false &&
+            <select name="mode" className="mode-select"onChange={this.handleModeChange}>
+              <option value="nope"> Add New Player </option>
+              <option value="BestOfThree"> Best of Three </option>
+              <option value="BestOfFive"> Best of Five </option>
+              <option value="Bracket"> Bracket </option>
+            </select>
+          }
           {this.state.mode === "nope" &&
             <NewPlayerForm addNewPlayer={this.addNewPlayer}/>
           }
@@ -167,6 +169,7 @@ class TourneyZone extends Component {
               updateScore={this.updateScore}
               resetTourney={this.resetTourney}
               socketGoLive={this.socketGoLive}
+              tName={this.state.tName}
               isLive={this.state.isLive}
               player1={this.state.player1}
               player2={this.state.player2}
@@ -183,6 +186,7 @@ class TourneyZone extends Component {
               updateScore={this.updateScore}
               resetTourney={this.resetTourney}
               socketGoLive={this.socketGoLive}
+              tName={this.state.tName}
               isLive={this.state.isLive}
               player1={this.state.player1}
               player2={this.state.player2}
@@ -191,13 +195,17 @@ class TourneyZone extends Component {
               playerList={this.state.playerList}
             />
           }
+        <button onClick={this.resetTourney}> Reset </button>
         </form>
         <TourneyDecider
           mode={this.state.mode}
+          tName={this.state.tName}
           player1={this.state.player1}
           player2={this.state.player2}
           player1wins={this.state.player1wins}
           player2wins={this.state.player2wins}
+          player1faction={this.state.player1faction}
+          player2faction={this.state.player2faction}
         />
       </div>
     )
