@@ -28,12 +28,7 @@ var TournamentSchema = new Schema({
   players: [{
       type: Schema.Types.String,
       ref: "Player"
-    }],
-
-  isLive: [{
-    type: Boolean,
-    default: false
-  }]
+    }]
 
 })
 
