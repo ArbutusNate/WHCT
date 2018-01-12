@@ -65,25 +65,24 @@ const axios = require("axios");
     })
   })
 
+  router.get(`/liveTournaments/`, (req, res) => {
+    console.log('hitting /liveTournaments');
+    Tournament.find({isLive : true}, (error, liveTournaments) => {
+      if(!error){
+        res.json(liveTournaments);
+      }
+    })
+  })
+
   router.get(`/getcompetitors`, (req, res) => {
     console.log('hitting /getcompetitors');
     Player.find((error, players) => {
-      // ErrorHander(error);
-      if(!error){
-        Tournament.find({isLive : true}, (error, liveTournaments) => {
-          if(!error){
-            let result = {
-              'players': players,
-              'liveTournaments': liveTournaments
-            }
-            res.json(result);
-          }
-        })
+      if(!error) {
+        res.json(players);
       } else {
         console.log(error);
       }
     })
   })
-
 
 module.exports = router;
