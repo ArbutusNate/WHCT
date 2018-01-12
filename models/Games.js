@@ -12,7 +12,7 @@ var GameSchema = new Schema({
     type: Number
   },
 
-  player1: [{
+  player1: {
       name: {
         type: String,
         ref: "Player"
@@ -23,9 +23,9 @@ var GameSchema = new Schema({
       isWinner: {
         type: Boolean
       }
-    }],
+    },
 
-  player2: [{
+  player2: {
       name: {
         type: String,
         ref: "Player"
@@ -36,17 +36,17 @@ var GameSchema = new Schema({
       isWinner: {
         type: Boolean
       }
-    }],
+    },
 
-  winner: [{
+  winner: {
       type: Schema.Types.ObjectId,
       ref: "Player"
-    }],
+    },
 
-  loser: [{
+  loser: {
       type: Schema.Types.ObjectId,
       ref: "Player"
-    }]
+    }
 
 })
 

@@ -26,7 +26,8 @@ const axios = require("axios");
       { $set: {
         type: req.params.type,
         link: req.params.link,
-        players: [req.params.p1, req.params.p2],
+        player1: req.params.p1,
+        player2: req.params.p2,
         isLive: req.params.status
       }},
       {upsert: true, new: true},
@@ -43,18 +44,28 @@ const axios = require("axios");
 
   // Incoming Params: tName, gameNumber, player1, player1faction, player2, player2faction, winner, loser.
   router.post(`/savegame/:tId/:tName/:gameNumber/:player1/:player1faction/:player2/:player2faction/:winner/`, (req, res) => {
-    let data = [
-      {'tournament': req.params.tId},
-      {'gameNumber': req.params.gameNumber},
-      {'player1':
-        {'name': req.params.player1}
-        // {'faction': req.params.player1faction}
+    let data = {
+      'tournament': req.params.tId,
+      'gameNumber': req.params.gameNumber,
+      'player1': {
+        name: req.params.player1,
+        faction: req.params.player1faction
       },
-      {'player2':
-        {'name': req.params.player2}
-        // {'faction': req.params.player2faction}
+      player2: {
+        name: req.params.player2,
+        faction: req.params.player2faction
       }
-    ]
+    }
+      // {'tournament': req.params.tId},
+      // {'gameNumber': req.params.gameNumber},
+      // {'player1':
+      //   {'name': req.params.player1}
+      //   // {'faction': req.params.player1faction}
+      // },
+      // {'player2':
+      //   {'name': req.params.player2}
+      //   // {'faction': req.params.player2faction}
+      // }
     Game.create(data, (error, result) => {
       if(!error){
         res.json(result);

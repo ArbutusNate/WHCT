@@ -43,6 +43,9 @@ class AdminControl extends Component {
     let tId = this.state.currentTourneyId;
     // Outgoing Params: tName, gameNumber, player1, player1faction, player2, player2faction, winner, loser.
     Axios.post(`/admin/savegame/${tId}/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}/${winner}`)
+      .then(res => {
+        console.log(res);
+      })
     this.setState({
       [e.target.name]: this.state[e.target.name] + 1,
       player1faction: '',

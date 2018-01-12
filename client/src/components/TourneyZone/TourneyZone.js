@@ -37,6 +37,7 @@ class TourneyZone extends Component {
         {this.state.liveTournaments.map((data, i) => {
           return (
               <BestOfFive
+                key={`liveT` + i}
                 tName={data.name}
                 player1={data.players[0]}
                 player2={data.players[1]}

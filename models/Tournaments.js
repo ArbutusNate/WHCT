@@ -25,7 +25,12 @@ var TournamentSchema = new Schema({
       ref: "Game"
     }],
 
-  players: [{
+  player1: [{
+      type: Schema.Types.String,
+      ref: "Player"
+    }],
+
+  player2: [{
       type: Schema.Types.String,
       ref: "Player"
     }],
@@ -33,7 +38,7 @@ var TournamentSchema = new Schema({
   isLive: {
     type: Boolean,
     default: false
-  }
+  },
 
 })
 
