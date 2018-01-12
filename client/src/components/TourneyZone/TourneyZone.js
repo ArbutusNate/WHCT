@@ -20,9 +20,9 @@ class TourneyZone extends Component {
       player2: "Choose Player 2",
       player1wins: 0,
       player2wins: 0,
-      player1faction: 'default',
-      player2faction: 'default',
-      tName: 'unnamed',
+      player1faction: '',
+      player2faction: '',
+      tName: 'New Tournament',
       link: 'gotta add this'
     }
   }
@@ -45,13 +45,13 @@ class TourneyZone extends Component {
     Axios.post(`/admin/savegame/${tId}/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}/${winner}`)
     this.setState({
       [e.target.name]: this.state[e.target.name] + 1,
-      player1faction: 'default',
-      player2faction: 'default'
+      player1faction: '',
+      player2faction: ''
     })
     // socket.emit
   }
 
-  Tournament = (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, link) => {
+  Tournament = (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, link, isLive) => {
     return {
       name,
       type,
@@ -60,19 +60,31 @@ class TourneyZone extends Component {
       p1Score,
       p2,
       p2Faction,
-      p2Score
+      p2Score,
+      link,
+      isLive
     }
   }
 
   socketGoLive = (e) => {
     this.handleFormSubmit(e);
     e.preventDefault();
-    // (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score)
+    // (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, isLive)
     this.setState({
       isLive: true
     })
-    let liveTourney = this.Tournament(this.state.tName, this.state.mode, this.state.player1, this.state.player1faction, this.state.player1wins, this.state.player2, this.state.player2faction, this.state.player2wins, 'youtube link');
-    // console.log(liveTourney);
+    let liveTourney = this.Tournament(this.state.tName, this.state.mode, this.state.player1, this.state.player1faction, this.state.player1wins, this.state.player2, this.state.player2faction, this.state.player2wins, 'youtube link',this.state.isLive);
+    console.log("saving tournament results");
+    Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}/${true}`)
+    .then(res => {
+      console.log(res);
+      this.setState({
+        currentTourneyId: res.data._id
+      })
+    })
+    .catch(error => {
+      console.log(error);
+    })
     socket.emit('live', liveTourney);
   }
 
@@ -101,18 +113,18 @@ class TourneyZone extends Component {
         })
     }
     else if(this.state.mode === "BestOfThree" || "BestOfFive") {
-      console.log("saving tournament results");
-      // let tourneyInfo = {};
-      Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}`)
-      .then(res => {
-        console.log(res);
-        this.setState({
-          currentTourneyId: res.data._id
-        })
-      })
-      .catch(error => {
-        console.log(error);
-      })
+      // console.log("saving tournament results");
+      // // let tourneyInfo = {};
+      // Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}/${this.state.status}`)
+      // .then(res => {
+      //   console.log(res);
+      //   this.setState({
+      //     currentTourneyId: res.data._id
+      //   })
+      // })
+      // .catch(error => {
+      //   console.log(error);
+      // })
     }
   }
 
@@ -121,7 +133,8 @@ class TourneyZone extends Component {
     .then((res) => {
       console.log(res.data);
       this.setState({
-        'playerList': res.data
+        'playerList': res.data.players,
+        'liveTournaments': res.data.liveTournaments
       })
     })
   }
@@ -181,6 +194,7 @@ class TourneyZone extends Component {
           player2wins={this.state.player2wins}
           player1faction={this.state.player1faction}
           player2faction={this.state.player2faction}
+          tName={this.state.tName}
         />
       </div>
     )

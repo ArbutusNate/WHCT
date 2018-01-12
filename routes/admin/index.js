@@ -20,13 +20,14 @@ const axios = require("axios");
     })
   });
 
-  router.post(`/save/tournaments/:name/:type/:p1/:p2/:link`, (req, res) => {
+  router.post(`/save/tournaments/:name/:type/:p1/:p2/:link/:status`, (req, res) => {
     // Incoming Params (from TourneyZone.js): name, type, p1, p2, link
     Tournament.findOneAndUpdate({name: req.params.name},
       { $set: {
         type: req.params.type,
         link: req.params.link,
         players: [req.params.p1, req.params.p2],
+        isLive: req.params.status
       }},
       {upsert: true, new: true},
       (error, result) => {
@@ -67,9 +68,19 @@ const axios = require("axios");
   router.get(`/getcompetitors`, (req, res) => {
     console.log('hitting /getcompetitors');
     Player.find((error, players) => {
+      // ErrorHander(error);
       if(!error){
-        res.json(players);
-        return console.log('getting all players')
+        Tournament.find({isLive : true}, (error, liveTournaments) => {
+          if(!error){
+            let result = {
+              'players': players,
+              'liveTournaments': liveTournaments
+            }
+            res.json(result);
+          }
+        })
+      } else {
+        console.log(error);
       }
     })
   })
