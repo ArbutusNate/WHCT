@@ -7,6 +7,10 @@ var TournamentSchema = new Schema({
     type: String
   },
 
+  host: {
+    type: String
+  },
+
   link: {
     type: String
   },
@@ -20,25 +24,30 @@ var TournamentSchema = new Schema({
     type: String
   },
 
-  games: [{
+  games: {
       type: Schema.Types.ObjectId,
       ref: "Game"
-    }],
+    },
 
-  player1: [{
+  player1: {
       type: Schema.Types.String,
       ref: "Player"
-    }],
+    },
 
-  player2: [{
+  player2: {
       type: Schema.Types.String,
       ref: "Player"
-    }],
+    },
 
   isLive: {
     type: Boolean,
     default: false
   },
+
+  currentInfo: {
+    type: Schema.Types.ObjectId,
+    ref: "LiveTInfo"
+  }
 
 })
 

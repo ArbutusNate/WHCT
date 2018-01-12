@@ -3,10 +3,6 @@ import Axios from 'axios';
 import AdminControl from '../AdminControl';
 import BestOfFive from '../BestOfFive';
 import './TourneyZone.css';
-import openSocket from 'socket.io-client';
-const socket = openSocket(
-  // process.env.PORT || `http://localhost:3001`
-  );
 
 class TourneyZone extends Component {
     constructor(props) {
@@ -39,8 +35,12 @@ class TourneyZone extends Component {
               <BestOfFive
                 key={`liveT` + i}
                 tName={data.name}
-                player1={data.players[0]}
-                player2={data.players[1]}
+                player1={data.p1.name}
+                player1wins={data.p1.score}
+                player1faction={data.p1.faction}
+                player2={data.p2.name}
+                player2wins={data.p2.score}
+                player2faction={data.p2.faction}
               />
             )
           })
