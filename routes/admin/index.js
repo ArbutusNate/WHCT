@@ -21,6 +21,7 @@ const axios = require("axios");
     })
   });
 
+  // socketGoLive in AdminControl.js
   router.post(`/save/tournaments/:name/:type/:p1/:p2/:link/:status`, (req, res) => {
     //Create Live info for users, add names (score and faction will be default at this point)
     let data = {
@@ -32,7 +33,7 @@ const axios = require("axios");
         name: req.params.p2
       }
     }
-    LiveTInfo.create(data, (error, result) => {
+    LiveTInfo.create(data, (error, newTournament) => {
       if(!error){
         console.log(result);
         console.log(`creating temp live info`);
@@ -44,7 +45,7 @@ const axios = require("axios");
             player1: req.params.p1,
             player2: req.params.p2,
             isLive: req.params.status,
-            currentInfo: result._id
+            currentInfo: newTournament._id
           }},
           {upsert: true, new: true},
           (error, result) => {
@@ -80,14 +81,66 @@ const axios = require("axios");
         faction: req.params.player2faction
       }
     }
-    Game.create(data, (error, result) => {
-      if(!error){
-        res.json(result);
-        return console.log(`Adding this game to database`);
-      } else {
-        return console.log(error);
-      }
+    //Create New Game
+    Game.create(data,
+      (error, gameData) => {
+        if(!error){
+          // res.json(result);
+          //Add Game to current T model
+          Tournament.findOneAndUpdate(
+            {_id: req.params.tId},
+            { $push : {
+              games: {
+                // gameData._id
+              }
+            }},
+            (error, tData) => {
+              if(!error){
+                console.log("Game created/tournament updated.")
+              }
+            }
+            )
+          // return console.log(`Adding this game to database`);
+        } else {
+          return console.log(error);
+        }
     })
+  })
+
+  // For quickly updating the liveT info.
+  // AdminControl.js
+  router.post(`/updatefaction/:id/:value/:name`, (req, res) => {
+    console.log(`updating liveT faction info`)
+    let player = '';
+    if(req.params.name === "player1faction") {
+      player = "p1";
+    } else {
+      player = "p2";
+    };
+    LiveTInfo.findOne(
+      {_id : req.params.id},
+      player,
+      (error, data) => {
+        let tempPlayer = data[player];
+        console.log(data);
+        console.log(tempPlayer)
+        tempPlayer.faction = req.params.value
+        if(!error){
+          LiveTInfo.findOneAndUpdate(
+            {_id: req.params.id},
+            {[player]: tempPlayer},
+            (error, result) => {
+              if(!error) {
+                console.log(`Updating information of ${player}`)
+              }
+            }
+          )
+          return console.log(`Getting extant player info for ${player}`)
+        } else {
+          return console.log(error);
+        }
+      }
+      )
   })
 
   //Get Live tournament info on load

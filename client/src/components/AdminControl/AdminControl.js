@@ -35,11 +35,18 @@ class AdminControl extends Component {
     })
   }
 
+  updateFaction = (e) => {
+    e.preventDefault();
+    this.handleModeChange(e);
+    Axios.post(`/admin/updatefaction/${this.state.liveTId}/${e.target.value}/${e.target.name}`)
+  }
+
   updateScore = (e) => {
     e.preventDefault();
     let gameNumber = this.state.player1wins + this.state.player2wins + 1;
-    console.log(`Adding 1 win to ${e.target.name}`);
-    let winner = e.target.name;
+    console.log(e.target);
+    console.log(`Adding 1 win to ${e.target.pstring}`);
+    let winner = e.target.pstring;
     let tId = this.state.currentTourneyId;
     // Outgoing Params: tName, gameNumber, player1, player1faction, player2, player2faction, winner, loser.
     Axios.post(`/admin/savegame/${tId}/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}/${winner}`)
@@ -55,18 +62,7 @@ class AdminControl extends Component {
   }
 
   Tournament = (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, link, isLive) => {
-    return {
-      name,
-      type,
-      p1,
-      p1Faction,
-      p1Score,
-      p2,
-      p2Faction,
-      p2Score,
-      link,
-      isLive
-    }
+    return {name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, link, isLive}
   }
 
   socketGoLive = (e) => {
@@ -82,7 +78,8 @@ class AdminControl extends Component {
     .then(res => {
       console.log(res);
       this.setState({
-        currentTourneyId: res.data._id
+        currentTourneyId: res.data._id,
+        liveTId: res.data.currentInfo
       })
     })
     .catch(error => {
@@ -167,6 +164,7 @@ class AdminControl extends Component {
               handleLiveTournament={this.handleLiveTournament}
               tourneyState={this.state.live}
               handleChange={this.handleModeChange}
+              updateFaction={this.updateFaction}
               updateScore={this.updateScore}
               resetTourney={this.resetTourney}
               socketGoLive={this.socketGoLive}
@@ -183,6 +181,7 @@ class AdminControl extends Component {
               handleLiveTournament={this.handleLiveTournament}
               tourneyState={this.state.live}
               handleChange={this.handleModeChange}
+              updateFaction={this.updateFaction}
               updateScore={this.updateScore}
               resetTourney={this.resetTourney}
               socketGoLive={this.socketGoLive}
