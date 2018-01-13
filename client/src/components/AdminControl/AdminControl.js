@@ -23,7 +23,8 @@ class AdminControl extends Component {
       player1faction: '',
       player2faction: '',
       tName: 'New Tournament',
-      link: 'gotta add this'
+      link: 'gotta add this',
+      disableButtons: true
     }
   }
 
@@ -32,7 +33,14 @@ class AdminControl extends Component {
     console.log(e.target.name);
     this.setState({
       [e.target.name]: e.target.value
-    })
+    }, () => {
+      if((this.state.player1faction !== "") && (this.state.player2faction !== "")) {
+        console.log(`triggered`);
+        this.setState({
+          disableButtons: false
+        });
+      }
+    });
   }
 
   updateFaction = (e) => {
@@ -56,7 +64,8 @@ class AdminControl extends Component {
     this.setState({
       [e.target.name]: this.state[e.target.name] + 1,
       player1faction: '',
-      player2faction: ''
+      player2faction: '',
+      disableButtons: true
     })
     // socket.emit
   }
@@ -137,6 +146,10 @@ class AdminControl extends Component {
     })
   }
 
+  // componentDidUpdate() {
+  //   console.log(this.state.player1faction);
+  //   console.log(this.state.player2faction);
+  // }
   // switchAdminOptions = (e) => {
   //   e.preventDefault();
   //   this.setState({
@@ -174,6 +187,7 @@ class AdminControl extends Component {
               player1faction={this.state.player1faction}
               player2faction={this.state.player2faction}
               playerList={this.state.playerList}
+              disableButtons={this.state.disableButtons}
             />
           }
           {this.state.mode === "BestOfThree" &&
@@ -191,6 +205,7 @@ class AdminControl extends Component {
               player1faction={this.state.player1faction}
               player2faction={this.state.player2faction}
               playerList={this.state.playerList}
+              disableButtons={this.state.disableButtons}
             />
           }
         </form>
