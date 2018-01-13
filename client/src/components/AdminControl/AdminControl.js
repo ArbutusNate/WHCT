@@ -45,8 +45,8 @@ class AdminControl extends Component {
     e.preventDefault();
     let gameNumber = this.state.player1wins + this.state.player2wins + 1;
     console.log(e.target);
-    console.log(`Adding 1 win to ${e.target.pstring}`);
-    let winner = e.target.pstring;
+    console.log(`Adding 1 win to ${e.target.attributes.pstring.value}`);
+    let winner = e.target.attributes.pstring.value;
     let tId = this.state.currentTourneyId;
     // Outgoing Params: tName, gameNumber, player1, player1faction, player2, player2faction, winner, loser.
     Axios.post(`/admin/savegame/${tId}/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}/${winner}`)

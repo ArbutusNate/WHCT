@@ -82,28 +82,67 @@ const axios = require("axios");
       }
     }
     //Create New Game
-    Game.create(data,
+    Game.create(
+      data,
       (error, gameData) => {
         if(!error){
           // res.json(result);
           //Add Game to current T model
           Tournament.findOneAndUpdate(
             {_id: req.params.tId},
+            'games',
             { $push : {
-              games: {
-                // gameData._id
-              }
+              games: gameData._id
             }},
             (error, tData) => {
               if(!error){
-                console.log("Game created/tournament updated.")
+                //Grab LiveInfo and update score
+                let tempPlayer;
+                let otherPlayer;
+                if(req.params.winner === "player1"){
+                  tempPlayer = "p1"
+                  otherPlayer = "p2"
+                } else {
+                  tempPlayer = "p2"
+                  otherPlayer = "p1"
+                }
+                LiveTInfo.findOne(
+                  {_id: tData.currentInfo},
+                  // tempPlayer,
+                  (error, extantData) => {
+                    if(!error) {
+                      console.log(`Getting extant Live Info for ${tempPlayer}`);
+                      console.log(extantData[tempPlayer].score);
+                      let winnerData = extantData[tempPlayer];
+                      winnerData.score++;
+                      winnerData.faction = '';
+                      let loserData = extantData[otherPlayer];
+                      loserData.faction = '';
+                      console.log(winnerData);
+                      LiveTInfo.findOneAndUpdate(
+                        {_id: tData.currentInfo},
+                        {
+                          [tempPlayer]: winnerData,
+                          [otherPlayer]: loserData
+                        },
+                        (error, updateData) => {
+                          if(!error) {
+                            console.log(`Updating score for ${tempPlayer}`)
+                          }
+                        }
+                      )
+                    } else {
+                      return console.log(error);
+                    }
+                })
+                return console.log("Game created/tournament updated.")
               }
             }
-            )
+          )
           // return console.log(`Adding this game to database`);
-        } else {
-          return console.log(error);
-        }
+      } else {
+        return console.log(error);
+      }
     })
   })
 
