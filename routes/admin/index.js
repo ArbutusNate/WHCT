@@ -96,7 +96,7 @@ const axios = require("axios");
             }},
             (error, tData) => {
               if(!error){
-                //Grab LiveInfo and update score
+                //Grab LiveInfo for update
                 let tempPlayer;
                 let otherPlayer;
                 if(req.params.winner === "player1"){
@@ -108,17 +108,17 @@ const axios = require("axios");
                 }
                 LiveTInfo.findOne(
                   {_id: tData.currentInfo},
-                  // tempPlayer,
                   (error, extantData) => {
                     if(!error) {
                       console.log(`Getting extant Live Info for ${tempPlayer}`);
-                      console.log(extantData[tempPlayer].score);
+                      // console.log(extantData[tempPlayer].score);
                       let winnerData = extantData[tempPlayer];
                       winnerData.score++;
                       winnerData.faction = '';
                       let loserData = extantData[otherPlayer];
                       loserData.faction = '';
-                      console.log(winnerData);
+                      // console.log(winnerData);
+                      //Update score
                       LiveTInfo.findOneAndUpdate(
                         {_id: tData.currentInfo},
                         {
@@ -127,6 +127,16 @@ const axios = require("axios");
                         },
                         (error, updateData) => {
                           if(!error) {
+                            let playerArray = [req.params.player1, req.params.player2];
+                            playerArray.map((data, i) => {
+                              Player.findOneAndUpdate(
+                                {name: data},
+                                {$push: {history: gameData._id}},
+                                (error, playerResult) => {
+                                  console.log(`updating player ${i}`);
+                                }
+                              )
+                            })
                             console.log(`Updating score for ${tempPlayer}`)
                           }
                         }
@@ -180,6 +190,17 @@ const axios = require("axios");
         }
       }
       )
+  })
+
+  //For quickly updating player win/loss info
+  //AdminControl.js
+  router.post(`/updateplayer/:winner/:loser/:format`, (req, res) => {
+    Player.findOne(
+      {name: req.params.winner},
+      (error, winnerData) => {
+        console.log(`--------------------------------`)
+        console.log(winnerData);
+      })
   })
 
   //Get Live tournament info on load

@@ -57,10 +57,18 @@ class AdminControl extends Component {
     let winner = e.target.attributes.pstring.value;
     let tId = this.state.currentTourneyId;
     // Outgoing Params: tName, gameNumber, player1, player1faction, player2, player2faction, winner, loser.
-    Axios.post(`/admin/savegame/${tId}/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}/${winner}`)
+    let route = `/admin/savegame/${tId}/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}/${winner}`
+    Axios.post(route)
       .then(res => {
         console.log(res);
       })
+    let loser;
+    if(winner === "player1"){
+      loser = this.state.player2;
+    } else {
+      loser = this.state.player1;
+    }
+    Axios.post(`admin/updateplayer/${this.state[winner]}/${loser}/g`)
     this.setState({
       [e.target.name]: this.state[e.target.name] + 1,
       player1faction: '',

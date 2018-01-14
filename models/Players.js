@@ -4,28 +4,34 @@ var Schema = mongoose.Schema
 var PlayerSchema = new Schema({
 
   name: {
-    type: String
+    type: String,
+      default: 0
   },
 
   link: {
-    type: String
+    type: String,
+      default: 0
   },
 
   tRecord: {
     wins: {
-      type: Number
+      type: Number,
+      default: 0
     },
     losses: {
-      type: Number
+      type: Number,
+      default: 0
     }
   },
 
   gRecord: {
     wins: {
-      type: Number
+      type: Number,
+      default: 0
     },
     losses: {
-      type: Number
+      type: Number,
+      default: 0
     }
   },
 
