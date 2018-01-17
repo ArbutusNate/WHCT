@@ -191,7 +191,7 @@ const axios = require("axios");
                   res.json(result);
                   return console.log(`Updating information of ${player}`);
                 } else {
-                  console.log(error);
+                  return console.log(error);
                 }
               }
             )
@@ -208,40 +208,41 @@ const axios = require("axios");
   //For quickly updating player win/loss info
   //AdminControl.js
   router.post(`/updateplayer/:winner/:loser/:format`, (req, res) => {
-    // let updatePlayer = (id)
     let format = req.params.format + 'Record';
     console.log(`hitting updateplayer`);
     Player.findOne(
       {name: req.params.winner},
       (error, winnerData) => {
-        let newScore = winnerData.gRecord.wins + 1;
+        console.log(winnerData);
+        // let formatData = winnerData[]
+        let newScore = winnerData[format].wins + 1;
         if(!error){
           Player.findOneAndUpdate(
             {_id: winnerData._id},
-            { $set: {gRecord: {
+            { $set: {[format]: {
               wins: newScore,
               losses: winnerData.gRecord.losses
               }
             }},
             (error, data) => {
               if(!error){
-              console.log(`----------winner updated-------`);
+                console.log(`----------winner updated-------`);
                 Player.findOne(
                   {name: req.params.loser},
                   (error, loserData) => {
                     if(!error){
-                    let newScore = loserData.gRecord.losses + 1;
+                      let newScore = loserData.gRecord.losses + 1;
                       Player.findOneAndUpdate(
                         {_id: loserData._id},
-                        { $set : {
-                          gRecord: {
+                        { $set : {[format]: {
                             wins: loserData.gRecord.wins,
                             losses: newScore
                           }
                         }},
                         (error, data) => {
                           if(!error){
-                            console.log(`----------loser updated-------`);
+                            res.json(data);
+                            return console.log(`----------loser updated-------`);
                           } else {
                             return console.log(error);
                           }
@@ -249,17 +250,14 @@ const axios = require("axios");
                     } else {
                       return console.log(error);
                     }
-
                   })
               } else {
                 return console.log(error);
               }
-
             })
         } else {
           return console.log(error);
         }
-
     })
   })
 

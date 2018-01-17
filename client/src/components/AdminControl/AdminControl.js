@@ -62,13 +62,15 @@ class AdminControl extends Component {
     console.log(`Adding 1 win to ${e.target.attributes.pstring.value}`);
     let gameNumber = this.state.player1wins + this.state.player2wins + 1;
     let winner = e.target.attributes.pstring.value;
+    let loser;
     let tId = this.state.currentTourneyId;
     // Outgoing Params: tName, gameNumber, player1, player1faction, player2, player2faction, winner, loser.
-    let route = `/admin/savegame/${tId}/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}/${winner}`
+    let route = `/admin/savegame/${tId}/${this.state.tName}/${gameNumber}/${this.state.player1}/${this.state.player1faction}/${this.state.player2}/${this.state.player2faction}/${winner}`;
+    // Save the game for records
     Axios.post(route)
       .then(res => {
         console.log(res.data);
-        console.log(`trying to update player`);
+        console.log(`Updating player...`);
         if(winner === "player1"){
           loser = this.state.player2;
         } else {
@@ -76,21 +78,21 @@ class AdminControl extends Component {
         }
         let route = `/admin/updateplayer/${this.state[winner]}/${loser}/g`;
         console.log(route);
+        // Modifies both player docs win/losses to reflect game
         Axios.post(route)
-          .then(() => {
+          .then((response) => {
             this.setState({
               [eventName]: this.state[eventName] + 1,
               player1faction: '',
               player2faction: '',
               disableButtons: true
             })
+            return console.log(`Done updating player.`);
           })
-
+          .catch((error) => {
+            return console.log(error);
+          })
       })
-    let loser;
-
-
-    // socket.emit
   }
 
   endSaveTournament = (e) => {
@@ -104,10 +106,16 @@ class AdminControl extends Component {
       winner = this.state.player2
       loser = this.state.player1
     }
-    console.log('trying to end/save');
+    console.log('Saving tournament and removing it from live...');
     Axios.post(`/admin/endtournament/${this.state.currentTourneyId}/${this.state.liveTId}/${winner}/${loser}`)
-      .then(res => {
-        console.log(`t updated`);
+      .then(response => {
+        console.log(`Tournament offline and saved.`);
+        console.log(`Updating player docs...`)
+        Axios.post(`/admin/updateplayer/${winner}/${loser}/t`)
+          .then(response => {
+            console.log(response.data);
+            console.log(`Player docs updated.`)
+          })
       })
   }
 
