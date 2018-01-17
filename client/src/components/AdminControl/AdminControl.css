@@ -1,0 +1,33 @@
+.control-panel {
+  background: #8e0d01;
+  /*background-color: #f98d00;*/
+  border: 1px solid black;
+  margin: 5px 30px;
+  padding-bottom: 7px;
+}
+
+.admin-control-header {
+  margin-top: 0px;
+}
+
+.mode-select {
+  float: left;
+}
+
+.form-control select {
+  margin-left: 20px;
+  margin-bottom: 7px;
+}
+
+.form-control input {
+  margin-left: 20px;
+  margin-top: 0px;
+}
+
+.form-control button {
+  margin-left: 20px;
+}
+
+.admin-submit {
+  margin-top: 15px;
+}

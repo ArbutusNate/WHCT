@@ -170,7 +170,7 @@ class AdminControl extends Component {
           console.log(error);
         })
     }
-    else if(this.state.mode === "BestOfThree" || "BestOfFive") {
+    else if(this.state.mode === "BestOf" || "BestOfFive") {
       // console.log("saving tournament results");
       // // let tourneyInfo = {};
       // Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}/${this.state.status}`)
@@ -209,18 +209,17 @@ class AdminControl extends Component {
 
   render () {
     return (
-      <div>
-        <h2 className="admin-controls"> Tournament Admin Controls </h2>
+      <div className="control-panel">
+        <h2 className="admin-control-header"> Tournament Admin Controls </h2>
         <form className="form-control" onSubmit={this.handleFormSubmit}>
           <select name="mode" className="mode-select" onChange={this.handleModeChange}>
             <option value="nope"> Add New Player </option>
-            <option value="BestOfThree"> "Best of" </option>
-            <option value="Bracket"> Bracket </option>
+            <option value="BestOf"> Best of </option>
           </select>
           {this.state.mode === "nope" &&
             <NewPlayerForm addNewPlayer={this.addNewPlayer}/>
           }
-          {this.state.mode === "BestOfThree" &&
+          {this.state.mode === "BestOf" &&
             <BestOfFiveOptions
               handleLiveTournament={this.handleLiveTournament}
               tourneyState={this.state.live}
@@ -241,16 +240,16 @@ class AdminControl extends Component {
           }
         </form>
 
-      <TourneyDecider
-        mode={this.state.mode}
-        player1={this.state.player1}
-        player2={this.state.player2}
-        player1wins={this.state.player1wins}
-        player2wins={this.state.player2wins}
-        player1faction={this.state.player1faction}
-        player2faction={this.state.player2faction}
-        tName={this.state.tName}
-      />
+        <TourneyDecider
+          mode={this.state.mode}
+          player1={this.state.player1}
+          player2={this.state.player2}
+          player1wins={this.state.player1wins}
+          player2wins={this.state.player2wins}
+          player1faction={this.state.player1faction}
+          player2faction={this.state.player2faction}
+          tName={this.state.tName}
+        />
 
       </div>
 

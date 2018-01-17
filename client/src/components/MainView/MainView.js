@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Header from '../Header';
-import Social from '../Social';
 import TourneyZone from '../TourneyZone';
 import RecordZone from '../RecordZone';
 import './MainView.css';
@@ -28,7 +27,6 @@ class MainView extends Component {
       <Header handleViewChange={this.props.handleViewChange}/>
       <div className="header-pad"></div>
       <div>
-        <Social />
         {this.props.view === 'tournament' &&
           <TourneyZone />
         }
