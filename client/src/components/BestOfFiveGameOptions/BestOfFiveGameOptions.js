@@ -33,10 +33,12 @@ const BestOfFiveGameOptions = props =>
     </select>
 
     <button disabled={props.disableButtons} className="bo5-form-item" name="player1wins" pstring="player1" onClick={props.updateScore}> + {props.player1} Win</button>
-    <button disabled={props.disableButtons}className="bo5-form-item" name="player2wins" pstring="player2" onClick={props.updateScore}> + {props.player2} Win</button>
+    <button disabled={props.disableButtons}className="bo5-form-item" name="player2wins" pstring="player2" onClick={props.updateScore}>
+      + {props.player2} Win
+    </button>
     <br />
 
-    <input className="bo5-form-item" type="submit" value="Save Tournament" />
+    <input className="bo5-form-item" type="submit" value="End and Save Tournament" />
   </div>
 
 
