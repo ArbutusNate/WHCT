@@ -178,19 +178,26 @@ const axios = require("axios");
       {_id : req.params.id},
       player,
       (error, data) => {
-        let tempPlayer = data[player];
-        tempPlayer.faction = req.params.value
         if(!error){
-          LiveTInfo.findOneAndUpdate(
-            {_id: req.params.id},
-            {[player]: tempPlayer},
-            (error, result) => {
-              if(!error) {
-                console.log(`Updating information of ${player}`)
+          let tempPlayer = data[player];
+          tempPlayer.faction = req.params.value
+          if(!error){
+            console.log(`Getting extant player info for ${player}`);
+            LiveTInfo.findOneAndUpdate(
+              {_id: req.params.id},
+              {[player]: tempPlayer},
+              (error, result) => {
+                if(!error) {
+                  res.json(result);
+                  return console.log(`Updating information of ${player}`);
+                } else {
+                  console.log(error);
+                }
               }
-            }
-          )
-          console.log(`Getting extant player info for ${player}`);
+            )
+          } else {
+            return console.log(error);
+          }
         } else {
           return console.log(error);
         }

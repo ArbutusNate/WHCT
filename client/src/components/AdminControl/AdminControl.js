@@ -45,7 +45,14 @@ class AdminControl extends Component {
   updateFaction = (e) => {
     e.preventDefault();
     this.handleModeChange(e);
+    console.log('Updating faction...');
     Axios.post(`/admin/updatefaction/${this.state.liveTId}/${e.target.value}/${e.target.name}`)
+      .then((response) => {
+        console.log("faction update done");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   updateScore = (e) => {
@@ -69,13 +76,16 @@ class AdminControl extends Component {
         }
         let route = `/admin/updateplayer/${this.state[winner]}/${loser}/g`;
         console.log(route);
-        Axios.post(route);
-        this.setState({
-          [eventName]: this.state[eventName] + 1,
-          player1faction: '',
-          player2faction: '',
-          disableButtons: true
-        })
+        Axios.post(route)
+          .then(() => {
+            this.setState({
+              [eventName]: this.state[eventName] + 1,
+              player1faction: '',
+              player2faction: '',
+              disableButtons: true
+            })
+          })
+
       })
     let loser;
 
