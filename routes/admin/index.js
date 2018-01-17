@@ -35,7 +35,7 @@ const axios = require("axios");
     }
     LiveTInfo.create(data, (error, newTournament) => {
       if(!error){
-        console.log(result);
+        // console.log(result);
         console.log(`creating temp live info`);
         Tournament.findOneAndUpdate(
           {name: req.params.name},
@@ -170,8 +170,8 @@ const axios = require("axios");
       {_id : req.params.id},
       player,
       (error, data) => {
-        let tempPlayer = data[player];
         console.log(data);
+        let tempPlayer = data[player];
         console.log(tempPlayer)
         tempPlayer.faction = req.params.value
         if(!error){
@@ -195,11 +195,38 @@ const axios = require("axios");
   //For quickly updating player win/loss info
   //AdminControl.js
   router.post(`/updateplayer/:winner/:loser/:format`, (req, res) => {
+    // let updatePlayer = (id)
+    console.log(`hitting updateplayer`);
     Player.findOne(
       {name: req.params.winner},
       (error, winnerData) => {
-        console.log(`--------------------------------`)
-        console.log(winnerData);
+        let newScore = winnerData.gRecord.wins + 1;
+        Player.findOneAndUpdate(
+          {_id: winnerData._id},
+          { $set: {gRecord: {
+            wins: newScore,
+            losses: winnerData.gRecord.losses
+            }
+          }},
+          (error, data) => {
+            console.log(`----------winner updated-------`);
+          })
+    })
+    Player.findOne(
+      {name: req.params.loser},
+      (error, loserData) => {
+        let newScore = loserData.gRecord.losses + 1;
+        Player.findOneAndUpdate(
+          {_id: loserData._id},
+          { $set : {
+            gRecord: {
+              wins: loserData.gRecord.wins,
+              losses: newScore
+            }
+          }},
+          (error, data) => {
+            console.log(`----------loser updated-------`);
+          })
       })
   })
 
