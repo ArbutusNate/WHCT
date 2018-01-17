@@ -47,6 +47,16 @@ var TournamentSchema = new Schema({
   currentInfo: {
     type: Schema.Types.ObjectId,
     ref: "LiveTInfo"
+  },
+
+  winner: {
+    type: Schema.Types.String,
+    ref: "Player"
+  },
+
+  loser: {
+    type: Schema.Types.String,
+    ref: "Player"
   }
 
 })

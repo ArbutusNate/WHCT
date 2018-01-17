@@ -33,10 +33,11 @@ const axios = require("axios");
         name: req.params.p2
       }
     }
+    //Create new liveT document
     LiveTInfo.create(data, (error, newTournament) => {
       if(!error){
-        // console.log(result);
         console.log(`creating temp live info`);
+        // Create new Tournament document and link new liveT
         Tournament.findOneAndUpdate(
           {name: req.params.name},
           { $set: {
@@ -86,7 +87,6 @@ const axios = require("axios");
       data,
       (error, gameData) => {
         if(!error){
-          // res.json(result);
           //Add Game to current T model
           Tournament.findOneAndUpdate(
             {_id: req.params.tId},
@@ -128,16 +128,24 @@ const axios = require("axios");
                         (error, updateData) => {
                           if(!error) {
                             let playerArray = [req.params.player1, req.params.player2];
-                            playerArray.map((data, i) => {
+                            // playerArray.map((data, i) => {
                               Player.findOneAndUpdate(
-                                {name: data},
+                                {name: playerArray[0]},
                                 {$push: {history: gameData._id}},
-                                (error, playerResult) => {
-                                  console.log(`updating player ${i}`);
+                                (error, playerResult0) => {
+                                  console.log(`updating player 1`);
+                                  Player.findOneAndUpdate(
+                                    {name: playerArray[1]},
+                                    {$push: {history: gameData._id}},
+                                    (error, playerResult1) => {
+                                      console.log(`updating player 2`);
+                                      res.json(gameData);
+                                    }
+
+                                  )
                                 }
                               )
-                            })
-                            console.log(`Updating score for ${tempPlayer}`)
+                            // })
                           }
                         }
                       )
@@ -170,9 +178,7 @@ const axios = require("axios");
       {_id : req.params.id},
       player,
       (error, data) => {
-        console.log(data);
         let tempPlayer = data[player];
-        console.log(tempPlayer)
         tempPlayer.faction = req.params.value
         if(!error){
           LiveTInfo.findOneAndUpdate(
@@ -184,7 +190,7 @@ const axios = require("axios");
               }
             }
           )
-          return console.log(`Getting extant player info for ${player}`)
+          console.log(`Getting extant player info for ${player}`);
         } else {
           return console.log(error);
         }
@@ -196,38 +202,82 @@ const axios = require("axios");
   //AdminControl.js
   router.post(`/updateplayer/:winner/:loser/:format`, (req, res) => {
     // let updatePlayer = (id)
+    let format = req.params.format + 'Record';
     console.log(`hitting updateplayer`);
     Player.findOne(
       {name: req.params.winner},
       (error, winnerData) => {
         let newScore = winnerData.gRecord.wins + 1;
-        Player.findOneAndUpdate(
-          {_id: winnerData._id},
-          { $set: {gRecord: {
-            wins: newScore,
-            losses: winnerData.gRecord.losses
-            }
-          }},
-          (error, data) => {
-            console.log(`----------winner updated-------`);
-          })
+        if(!error){
+          Player.findOneAndUpdate(
+            {_id: winnerData._id},
+            { $set: {gRecord: {
+              wins: newScore,
+              losses: winnerData.gRecord.losses
+              }
+            }},
+            (error, data) => {
+              if(!error){
+              console.log(`----------winner updated-------`);
+                Player.findOne(
+                  {name: req.params.loser},
+                  (error, loserData) => {
+                    if(!error){
+                    let newScore = loserData.gRecord.losses + 1;
+                      Player.findOneAndUpdate(
+                        {_id: loserData._id},
+                        { $set : {
+                          gRecord: {
+                            wins: loserData.gRecord.wins,
+                            losses: newScore
+                          }
+                        }},
+                        (error, data) => {
+                          if(!error){
+                            console.log(`----------loser updated-------`);
+                          } else {
+                            return console.log(error);
+                          }
+                        })
+                    } else {
+                      return console.log(error);
+                    }
+
+                  })
+              } else {
+                return console.log(error);
+              }
+
+            })
+        } else {
+          return console.log(error);
+        }
+
     })
-    Player.findOne(
-      {name: req.params.loser},
-      (error, loserData) => {
-        let newScore = loserData.gRecord.losses + 1;
-        Player.findOneAndUpdate(
-          {_id: loserData._id},
-          { $set : {
-            gRecord: {
-              wins: loserData.gRecord.wins,
-              losses: newScore
-            }
-          }},
-          (error, data) => {
-            console.log(`----------loser updated-------`);
-          })
-      })
+  })
+
+  //For ending and saving a tournament
+  //from endSaveTournament() in AdminControl.js
+  router.post(`/endtournament/:tId/:liveTId/:winner/:loser`, (req, res) => {
+    let tId = req.params.tId;
+    let liveTId = req.params.tId;
+    let winner = req.params.winner;
+    let loser = req.params.loser;
+    console.log(`SAVING TOURNAMENT`);
+    Tournament.findOneAndUpdate(
+      {_id: tId},
+      {
+        isLive: false,
+        winner: winner,
+        loser: loser
+      },
+      {new: true},
+      (error, savedTournament) => {
+        console.log('SAVED TOURNAMENT');
+        console.log(savedTournament);
+        res.json(savedTournament);
+      }
+    )
   })
 
   //Get Live tournament info on load
