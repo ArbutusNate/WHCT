@@ -1,16 +1,18 @@
 .control-panel {
-  background: #8e0d01;
+  /*background: #8e0d01;*/
   /*background-color: #f98d00;*/
+  background: #060606;
+  color: #f98d00;
+  font-family: 'Open Sans', sans-serif;
   border: 1px solid black;
-  margin: 5px;
+  margin: 5px 30px;
   padding-bottom: 7px;
-  width: 81%;
+  width: 800px;
   min-height: 57px;
 }
 
 .admin-control-header {
-  margin-top: 0px;
-  margin-left: 7px;
+  margin: 0px 0px 8px 7px;
 }
 
 .mode-select {

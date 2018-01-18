@@ -7,7 +7,8 @@
 }
 
 .b5-main {
-  background-color: gainsboro;
+  /*background-color: gainsboro;*/
+  background: #060606;
   height: 40px;
   padding: 7px;
 }
