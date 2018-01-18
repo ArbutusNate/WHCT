@@ -5,8 +5,8 @@ import './BestOfFive.css';
 const BestOfFive = props =>
 
   <div className="b5-background">
-    <div className="b5-header">
-      <h2>{props.tName}</h2>
+    <div className="b5-header-frame">
+      <h2 className="b5-header">{props.tName}</h2>
     </div>
     <div className="b5-main">
       <TourneyPlayerName player={props.player1} score={props.player1wins} faction={props.player1faction} />

@@ -7,7 +7,7 @@ import './BestOfFiveOptions.css';
 
 const BestOfFiveOptions = props =>
 
-  <div>
+  <div id="sub-control-panel">
     <input disabled={props.isLive} className="bo5-form-item" type="text" placeholder="Name this tournament" name="tName" onChange={props.handleChange}></input>
 
     <select disabled={props.isLive} className="bo5-form-item" name="player1" onChange={props.handleChange}>

@@ -2,16 +2,24 @@
   background: #8e0d01;
   /*background-color: #f98d00;*/
   border: 1px solid black;
-  margin: 5px 30px;
+  margin: 5px;
   padding-bottom: 7px;
+  width: 81%;
+  min-height: 57px;
 }
 
 .admin-control-header {
   margin-top: 0px;
+  margin-left: 7px;
 }
 
 .mode-select {
   float: left;
+  margin-top: 1px;
+}
+
+.form-control {
+  margin: -10px;
 }
 
 .form-control select {
@@ -30,4 +38,8 @@
 
 .admin-submit {
   margin-top: 15px;
+}
+
+.control-panel b5-background {
+  width: 99%;
 }
