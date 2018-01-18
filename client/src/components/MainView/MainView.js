@@ -3,6 +3,7 @@ import Header from '../Header';
 import TourneyZone from '../TourneyZone';
 import RecordZone from '../RecordZone';
 import './MainView.css';
+import Background from './spiration_dark.png'
 import openSocket from 'socket.io-client';
 const socket = openSocket(
   // process.env.PORT || `http://localhost:3001`
@@ -23,7 +24,7 @@ class MainView extends Component {
 
   render () {
    return (
-    <div className="background">
+    <div className="background" style={{backgroundImage: "url(" + Background + ")"}}>
       <Header handleViewChange={this.props.handleViewChange}/>
       <div className="header-pad"></div>
       <div>
