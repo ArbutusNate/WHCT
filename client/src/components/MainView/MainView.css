@@ -3,6 +3,7 @@ body {
   /*background-image: URL("images/spiration_dark.png");*/
   font-family: 'Open Sans', sans-serif;
   color: #f98d00;
+  /*overflow: scroll;*/
 }
 
 footer {
@@ -21,4 +22,5 @@ footer {
     left: 0;
     top: 0;
     z-index: 10;
+    overflow: scroll;
 }
