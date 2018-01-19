@@ -55,9 +55,9 @@ var io = require('socket.io')(server);
     //   console.log(`There is an issue connecting to (error)`);
     //   console.log(error);
     // })
-    client.on('live', (object) => {
+    client.on('live', (data) => {
+      console.log(data);
       console.log("incoming live tournament to 'live'.")
-      console.log(object);
       // client.emit('live list', object, () => {
       //   console.log(`emitted new ${object}`);
       // });

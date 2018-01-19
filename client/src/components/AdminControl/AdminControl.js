@@ -148,11 +148,11 @@ class AdminControl extends Component {
         currentTourneyId: res.data._id,
         liveTId: res.data.currentInfo
       })
+      socket.emit('live', this.state.currentTourneyId);
     })
     .catch(error => {
       console.log(error);
     })
-    socket.emit('live', this.state.currentTourneyId);
   }
 
   resetTourney = (e) => {
