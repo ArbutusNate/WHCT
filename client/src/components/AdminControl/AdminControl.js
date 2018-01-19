@@ -110,6 +110,19 @@ class AdminControl extends Component {
         console.log(`Updating player docs...`)
         Axios.post(`/admin/updateplayer/${winner}/${loser}/t`)
           .then(response => {
+            this.setState({
+              mode: 'BestOf',
+              isLive: false,
+              player1: "Choose Player 1",
+              player2: "Choose Player 2",
+              player1wins: 0,
+              player2wins: 0,
+              player1faction: '',
+              player2faction: '',
+              tName: 'New Tournament',
+              link: 'gotta add this',
+              disableButtons: true
+            })
             console.log(response.data);
             console.log(`Player docs updated.`)
           })
