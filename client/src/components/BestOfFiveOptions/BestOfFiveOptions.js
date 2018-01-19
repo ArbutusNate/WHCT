@@ -12,11 +12,11 @@ const BestOfFiveOptions = props =>
     <input disabled={props.isLive} className="bo5-form-item pure-u-7-24" type="text" placeholder="Tournament Name" name="tName" onChange={props.handleChange}></input>
 
     <select disabled={props.isLive} className="bo5-form-item pure-u-7-24" name="player1" onChange={props.handleChange}>
-      <option value="default"> Choose Player 1 </option>
+      <option value="default">Player 1 </option>
       <DropDownOption playerList={props.playerList}/>
     </select>
     <select disabled={props.isLive} className="bo5-form-item pure-u-7-24" name="player2" onChange={props.handleChange}>
-      <option value="default"> Choose Player 2 </option>
+      <option value="default">Player 2 </option>
       <DropDownOption playerList={props.playerList}/>
     </select>
 

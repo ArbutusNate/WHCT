@@ -30,6 +30,14 @@
   margin-left: 7px;
 }
 
+.control-panel h3 {
+  font-size: 12px;
+}
+
+.control-panel .b5-score {
+  margin: -22px 7px;
+}
+
 .b5-player h3 {
   /*width: 60%;*/
   display: inline;
@@ -38,8 +46,13 @@
 
 .b5-p1 {
   float: left;
+  /*color: #f98d00;*/
 }
 
 .b5-p2 {
   float: right;
+}
+
+.orange {
+  color: #f98d00;
 }
