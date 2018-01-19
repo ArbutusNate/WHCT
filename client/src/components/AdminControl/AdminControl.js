@@ -210,34 +210,36 @@ class AdminControl extends Component {
   render () {
     return (
       <div className="control-panel">
-        <h2 className="admin-control-header"> Tournament Admin Controls </h2>
-        <form className="form-control" onSubmit={this.handleFormSubmit}>
-          <select name="mode" className="mode-select" onChange={this.handleModeChange}>
+        <div className="pure-g">
+          <h2 className="admin-control-header pure-u-2-3"> Host Controls </h2>
+          <select name="mode" className="mode-select pure-u-1-3" onChange={this.handleModeChange}>
             <option value="nope"> Add New Player </option>
             <option value="BestOf"> Best of </option>
           </select>
-          {this.state.mode === "nope" &&
-            <NewPlayerForm addNewPlayer={this.addNewPlayer}/>
-          }
-          {this.state.mode === "BestOf" &&
-            <BestOfFiveOptions
-              handleLiveTournament={this.handleLiveTournament}
-              tourneyState={this.state.live}
-              handleChange={this.handleModeChange}
-              updateFaction={this.updateFaction}
-              updateScore={this.updateScore}
-              endSaveTournament={this.endSaveTournament}
-              resetTourney={this.resetTourney}
-              socketGoLive={this.socketGoLive}
-              isLive={this.state.isLive}
-              player1={this.state.player1}
-              player2={this.state.player2}
-              player1faction={this.state.player1faction}
-              player2faction={this.state.player2faction}
-              playerList={this.state.playerList}
-              disableButtons={this.state.disableButtons}
-            />
-          }
+        </div>
+        <form className="form-control" onSubmit={this.handleFormSubmit}>
+            {this.state.mode === "nope" &&
+              <NewPlayerForm addNewPlayer={this.addNewPlayer}/>
+            }
+            {this.state.mode === "BestOf" &&
+              <BestOfFiveOptions
+                handleLiveTournament={this.handleLiveTournament}
+                tourneyState={this.state.live}
+                handleChange={this.handleModeChange}
+                updateFaction={this.updateFaction}
+                updateScore={this.updateScore}
+                endSaveTournament={this.endSaveTournament}
+                resetTourney={this.resetTourney}
+                socketGoLive={this.socketGoLive}
+                isLive={this.state.isLive}
+                player1={this.state.player1}
+                player2={this.state.player2}
+                player1faction={this.state.player1faction}
+                player2faction={this.state.player2faction}
+                playerList={this.state.playerList}
+                disableButtons={this.state.disableButtons}
+              />
+            }
         </form>
 
         <TourneyDecider
