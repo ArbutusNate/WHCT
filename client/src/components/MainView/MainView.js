@@ -10,7 +10,7 @@ const socket = openSocket();
 class MainView extends Component {
 
   componentDidMount() {
-    console.log(`attempting to connect to 'live' socket`)
+    // console.log(`attempting to connect to 'live' socket`)
     // socket.on('live', response => {
     //   console.log('change from server');
     //   console.log(response);
