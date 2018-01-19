@@ -21,7 +21,7 @@ const BestOfFiveOptions = props =>
     </select>
 
 
-    <button disabled={props.isLive} className="bo5-form-item pure-u-1-2" onClick={props.socketGoLive}> Go Live! </button>
+    <button disabled={props.isLive} className="bo5-form-item pure-u-10-24" onClick={props.socketGoLive}> Go Live! </button>
     <button className="bo5-form-item pure-u-10-24" onClick={props.resetTourney}> Reset </button>
 
     {props.isLive === true &&
