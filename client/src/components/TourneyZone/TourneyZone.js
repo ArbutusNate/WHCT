@@ -3,6 +3,9 @@ import Axios from 'axios';
 import AdminControl from '../AdminControl';
 import BestOfFive from '../BestOfFive';
 import './TourneyZone.css';
+import openSocket from 'socket.io-client';
+const socket = openSocket();
+
 
 class TourneyZone extends Component {
     constructor(props) {
@@ -11,6 +14,9 @@ class TourneyZone extends Component {
     this.state = {
       liveTournaments: []
     }
+
+    // let subscribeToLive = () => {
+
   }
 
   componentDidMount = () => {
@@ -21,6 +27,9 @@ class TourneyZone extends Component {
         'liveTournaments': res.data,
       })
     })
+    // socket.on('live', () => {
+    //   console.log('new live data incoming');
+    // })
   }
 
 

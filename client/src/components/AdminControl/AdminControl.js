@@ -5,9 +5,7 @@ import BestOfFiveOptions from '../BestOfFiveOptions';
 import NewPlayerForm from '../NewPlayerForm';
 import './AdminControl.css';
 import openSocket from 'socket.io-client';
-const socket = openSocket(
-  // process.env.PORT || `http://localhost:3001`
-  );
+const socket = openSocket();
 
 class AdminControl extends Component {
   constructor(props) {
@@ -48,7 +46,7 @@ class AdminControl extends Component {
     console.log('Updating faction...');
     Axios.post(`/admin/updatefaction/${this.state.liveTId}/${e.target.value}/${e.target.name}`)
       .then((response) => {
-        console.log("faction update done");
+        console.log("Done updating faction.");
       })
       .catch((error) => {
         console.log(error);
@@ -69,7 +67,6 @@ class AdminControl extends Component {
     // Save the game for records
     Axios.post(route)
       .then(res => {
-        console.log(res.data);
         console.log(`Updating player...`);
         if(winner === "player1"){
           loser = this.state.player2;
@@ -134,7 +131,6 @@ class AdminControl extends Component {
     console.log("Going Live");
     Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}/${true}`)
     .then(res => {
-      console.log(res.data);
       this.setState({
         currentTourneyId: res.data._id,
         liveTId: res.data.currentInfo
@@ -143,7 +139,7 @@ class AdminControl extends Component {
     .catch(error => {
       console.log(error);
     })
-    socket.emit('live', liveTourney);
+    socket.emit('live', this.state.currentTourneyId);
   }
 
   resetTourney = (e) => {

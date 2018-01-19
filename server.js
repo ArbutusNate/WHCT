@@ -43,7 +43,7 @@ var server = app.listen(PORT, () => {
 
 var io = require('socket.io')(server);
 
-  console.log(`trying for socket`);
+  // console.log(`trying for socket`);
 
   io.on('connection', client => {
     console.log("client connected to 'connection'");
@@ -56,12 +56,11 @@ var io = require('socket.io')(server);
     //   console.log(error);
     // })
     client.on('live', (object) => {
-      let currentTourneys = {};
       console.log("incoming live tournament to 'live'.")
-      // console.log(object);
-      client.emit('live list', object, () => {
-        console.log(`emitted new ${object}`);
-      });
+      console.log(object);
+      // client.emit('live list', object, () => {
+      //   console.log(`emitted new ${object}`);
+      // });
     })
   });
 

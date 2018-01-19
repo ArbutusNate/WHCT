@@ -5,21 +5,16 @@ import RecordZone from '../RecordZone';
 import './MainView.css';
 import Background from './spiration_dark.png'
 import openSocket from 'socket.io-client';
-const socket = openSocket(
-  // process.env.PORT || `http://localhost:3001`
-  );
+const socket = openSocket();
 
 class MainView extends Component {
 
   componentDidMount() {
     console.log(`attempting to connect to 'live' socket`)
-    socket.on('live', response => {
-      console.log('change from server');
-      console.log(response);
-    })
-    socket.on('live list', response => {
-      alert(response);
-    })
+    // socket.on('live', response => {
+    //   console.log('change from server');
+    //   console.log(response);
+    // })
   }
 
   render () {
