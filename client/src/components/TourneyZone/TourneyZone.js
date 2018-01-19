@@ -27,9 +27,9 @@ class TourneyZone extends Component {
         'liveTournaments': res.data,
       })
     })
-    // socket.on('live', () => {
-    //   console.log('new live data incoming');
-    // })
+    socket.on('live', () => {
+      console.log('new live data incoming');
+    })
   }
 
 
