@@ -129,9 +129,9 @@ class AdminControl extends Component {
       })
   }
 
-  Tournament = (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, link, isLive) => {
-    return {name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, link, isLive}
-  }
+  // Tournament = (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, link, isLive) => {
+  //   return {name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, link, isLive}
+  // }
 
   socketGoLive = (e) => {
     this.handleFormSubmit(e);
@@ -140,7 +140,7 @@ class AdminControl extends Component {
     this.setState({
       isLive: true
     })
-    let liveTourney = this.Tournament(this.state.tName, this.state.mode, this.state.player1, this.state.player1faction, this.state.player1wins, this.state.player2, this.state.player2faction, this.state.player2wins, 'youtube link',this.state.isLive);
+    // let liveTourney = this.Tournament(this.state.tName, this.state.mode, this.state.player1, this.state.player1faction, this.state.player1wins, this.state.player2, this.state.player2faction, this.state.player2wins, 'youtube link',this.state.isLive);
     console.log("Going Live");
     Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}/${true}`)
     .then(res => {
