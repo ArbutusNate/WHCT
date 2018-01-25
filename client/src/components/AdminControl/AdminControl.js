@@ -47,6 +47,7 @@ class AdminControl extends Component {
     Axios.post(`/admin/updatefaction/${this.state.liveTId}/${e.target.value}/${e.target.name}`)
       .then((response) => {
         console.log("Done updating faction.");
+        socket.emit('live', this.state.currentTourneyId);
       })
       .catch((error) => {
         console.log(error);
@@ -84,6 +85,7 @@ class AdminControl extends Component {
               player2faction: '',
               disableButtons: true
             })
+            socket.emit('live', this.state.currentTourneyId);
             return console.log(`Done updating player.`);
           })
           .catch((error) => {
