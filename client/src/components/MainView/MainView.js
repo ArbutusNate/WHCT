@@ -4,7 +4,7 @@ import TourneyZone from '../TourneyZone';
 import RecordZone from '../RecordZone';
 import './MainView.css';
 import Background from './spiration_dark.png'
-// import openSocket from 'socket.io-client';
+import openSocket from 'socket.io-client';
 // const socket = openSocket();
 
 class MainView extends Component {

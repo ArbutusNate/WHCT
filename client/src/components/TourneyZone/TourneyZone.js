@@ -10,14 +10,15 @@ const socket = openSocket();
 class TourneyZone extends Component {
     constructor(props) {
     super(props)
-    // var socket = this.props.socket;
     this.state = {
       liveTournaments: []
     }
+  }
 
-    // let subscribeToLive = () => {
+  getGames = (e) => {
 
   }
+
 
   componentDidMount = () => {
     Axios.get(`/admin/liveTournaments`)
@@ -27,12 +28,16 @@ class TourneyZone extends Component {
         'liveTournaments': res.data,
       })
     })
-    // socket.on('connect', () => {
-    //   console.log('connected to socket');
-    // })
     socket.on('liveResponse', (data) => {
-      console.log(data)
+      console.log(data);
       console.log('new live data incoming');
+      Axios.get(`/admin/liveTournaments`)
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          'liveTournaments': res.data,
+        })
+      })
     })
   }
 

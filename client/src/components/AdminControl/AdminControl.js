@@ -206,18 +206,6 @@ class AdminControl extends Component {
     })
   }
 
-  // componentDidUpdate() {
-  //   console.log(this.state.player1faction);
-  //   console.log(this.state.player2faction);
-  // }
-  // switchAdminOptions = (e) => {
-  //   e.preventDefault();
-  //   this.setState({
-  //     'controlType': e.target.value
-  //   })
-  // }
-
-
   render () {
     return (
       <div className="control-panel">

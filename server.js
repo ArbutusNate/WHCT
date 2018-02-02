@@ -45,12 +45,12 @@ var io = require('socket.io')(server);
 
   // console.log(`trying for socket`);
 
-  io.sockets.on('connection', client => {
+  io.on('connection', client => {
     console.log("client connected to 'connection'");
     client.on('live', data => {
       console.log(data);
-      client.emit('liveResponse', data);
       console.log("incoming live tournament to 'live'.")
+      io.emit('liveResponse', data);
     })
   });
 
