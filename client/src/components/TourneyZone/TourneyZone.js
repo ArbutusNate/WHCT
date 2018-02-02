@@ -15,11 +15,6 @@ class TourneyZone extends Component {
     }
   }
 
-  getGames = (e) => {
-
-  }
-
-
   componentDidMount = () => {
     Axios.get(`/admin/liveTournaments`)
     .then((res) => {

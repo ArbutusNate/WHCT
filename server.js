@@ -43,8 +43,6 @@ var server = app.listen(PORT, () => {
 
 var io = require('socket.io')(server);
 
-  // console.log(`trying for socket`);
-
   io.on('connection', client => {
     console.log("client connected to 'connection'");
     client.on('live', data => {
