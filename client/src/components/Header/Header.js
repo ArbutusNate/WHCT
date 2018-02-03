@@ -14,6 +14,9 @@ const Header = props =>
       <div className="nav-button" view="records" onClick={props.handleViewChange}>
         Records
       </div>
+      <div className="nav-button" onClick={() => props.showHideModal('block')}>
+        Login
+      </div>
     </nav>
   </div>
 
