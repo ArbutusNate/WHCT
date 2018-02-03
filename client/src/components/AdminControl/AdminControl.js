@@ -12,6 +12,8 @@ class AdminControl extends Component {
     super(props)
     // var socket = this.props.socket;
     this.state = {
+      newPlayer: '',
+      newPlayerLink: '',
       mode: 'nope',
       isLive: false,
       player1: "Choose Player 1",
@@ -139,22 +141,27 @@ class AdminControl extends Component {
     this.handleFormSubmit(e);
     e.preventDefault();
     // (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, isLive)
-    this.setState({
-      isLive: true
-    })
+
     // let liveTourney = this.Tournament(this.state.tName, this.state.mode, this.state.player1, this.state.player1faction, this.state.player1wins, this.state.player2, this.state.player2faction, this.state.player2wins, 'youtube link',this.state.isLive);
-    console.log("Going Live");
-    Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}/${true}`)
-    .then(res => {
+    if(this.state.player1 === 'Choose Player 1' || this.state.player2 === 'Choose Player 2') {
+      console.log('Choose both players')
+    } else {
       this.setState({
-        currentTourneyId: res.data._id,
-        liveTId: res.data.currentInfo
+        isLive: true
       })
-      socket.emit('live', this.state.currentTourneyId);
-    })
-    .catch(error => {
-      console.log(error);
-    })
+      console.log("Going Live");
+      Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}/${true}`)
+      .then(res => {
+        this.setState({
+          currentTourneyId: res.data._id,
+          liveTId: res.data.currentInfo
+        })
+        socket.emit('live', this.state.currentTourneyId);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    }
   }
 
   resetTourney = (e) => {
@@ -171,11 +178,15 @@ class AdminControl extends Component {
     e.preventDefault();
     if(this.state.mode === "nope") {
       console.log("saving new player");
-      let playerName = e.target.newplayername.value;
-      let ytLink = encodeURIComponent(e.target.newplayeryt.value);
+      let playerName = e.target.newPlayer.value;
+      let ytLink = encodeURIComponent(e.target.newPlayerLink.value);
       Axios.post(`/admin/newplayer/${playerName}/${ytLink}`)
         .then(res => {
           console.log(res);
+          this.setState({
+            newPlayer: '',
+            newPlayerLink: ''
+          })
         })
         .catch(error => {
           console.log(error);
@@ -218,7 +229,12 @@ class AdminControl extends Component {
         </div>
         <form className="form-control" onSubmit={this.handleFormSubmit}>
             {this.state.mode === "nope" &&
-              <NewPlayerForm addNewPlayer={this.addNewPlayer}/>
+              <NewPlayerForm
+                addNewPlayer={this.addNewPlayer}
+                newPlayer={this.state.newPlayer}
+                newPlayerLink={this.state.newPlayerLink}
+                handleChange={this.handleModeChange}
+              />
             }
             {this.state.mode === "BestOf" &&
               <BestOfFiveOptions
