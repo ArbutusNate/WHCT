@@ -16,4 +16,4 @@ yarn-debug.log*
 yarn-error.log*
 
 client/public/build
-client/src/firebase/auth.js
+client/src/firebase/firebase.js
