@@ -52,18 +52,27 @@ class LoginModal extends Component {
     this.setState({
       ...initialState
     })
+    this.props.showHideModal('none');
   }
 
   signUp = (e) => {
     e.preventDefault();
-    auth.createAccountEmailPassword(this.state.username, this.state.password1);
+    auth.createAccountEmailPassword(this.state.username, this.state.password1)
+      .catch(error => console.log(error))
     this.setState({
       ...initialState
     })
+    this.props.showHideModal('none');
   }
 
 
   render () {
+
+    const isInvalid =
+      this.state.password1 !== this.state.password2 ||
+      this.state.password1 === '' ||
+      this.state.username === '';
+
     return (
       <div className="modal" style={{display: this.props.showModal}}>
         <div>
@@ -91,8 +100,8 @@ class LoginModal extends Component {
             value={this.state.password2}
             onChange={this.handleFormChange}
           />
-          <button disabled={this.state.isInvalid} onClick={this.signIn}>Sign In</button>
-          <button disabled={this.state.isInvalid} onClick={this.signUp}>Sign Up</button>
+          <button disabled={isInvalid} onClick={this.signIn}>Sign In</button>
+          <button disabled={isInvalid} onClick={this.signUp}>Sign Up</button>
         </form>
       </div>
      )
