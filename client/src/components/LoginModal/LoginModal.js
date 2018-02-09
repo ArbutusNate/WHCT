@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './LoginModal.css';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import { auth } from "../../firebase";
 // import firebaseui from 'firebaseui';
 // var firebase = require('firebase');
@@ -28,23 +28,6 @@ class LoginModal extends Component {
     })
   }
 
-  // createUser = (email, pw) => {
-  //   console.log('now doing what we actually want to do');
-  //   firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(email, pw)
-  //   .catch((error) => {
-  //     debugger;
-  //     console.log(error.message);
-  //     return;
-  //   })
-  // }
-
-  // dumbFunction = (e) => {
-  //   e.preventDefault;
-  //   debugger;
-  //   console.log('doing this stupid unnessecary shit first');
-  //   this.createUser(this.state.createName, this.state.createPw)
-  // }
-
   signIn = (e) => {
     e.preventDefault();
     // console.log(e.target);
@@ -53,6 +36,8 @@ class LoginModal extends Component {
       ...initialState
     })
     this.props.showHideModal('none');
+    this.props.getLoggedIn();
+    console.log("Welcome back!")
   }
 
   signUp = (e) => {
@@ -63,6 +48,8 @@ class LoginModal extends Component {
       ...initialState
     })
     this.props.showHideModal('none');
+    this.props.getLoggedIn();
+    console.log("New user welcome");
   }
 
 

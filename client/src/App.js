@@ -20,6 +20,12 @@ class App extends Component {
     })
   }
 
+  getLoggedIn = () => {
+    this.setState({
+      isLoggedIn: true
+    })
+  }
+
   // FirebaseUI config.
 
   render() {
@@ -28,6 +34,7 @@ class App extends Component {
         <MainView
           {...this.state}
           handleViewChange={this.handleViewChange}
+          getLoggedIn={this.getLoggedIn}
         />
       </BrowserRouter>
     );

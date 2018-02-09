@@ -4,7 +4,8 @@ import TourneyZone from '../TourneyZone';
 import RecordZone from '../RecordZone';
 import './MainView.css';
 import Background from './spiration_dark.png';
-import LoginModal from '../LoginModal'
+import LoginModal from '../LoginModal';
+import {auth} from "../../firebase";
 // import openSocket from 'socket.io-client';
 // const socket = openSocket();
 
@@ -12,7 +13,8 @@ class MainView extends Component {
 
   componentWillMount() {
     this.setState({
-      showModal: 'none'
+      showModal: 'none',
+      isLoggedIn: false
     })
   }
 
@@ -24,14 +26,27 @@ class MainView extends Component {
     })
   }
 
+  logOut = (e) => {
+    e.preventDefault();
+    this.setState({
+      isLoggedIn: false
+    })
+    console.log('logged out')
+  }
+
   render () {
    return (
     <div className="background" style={{backgroundImage: "url(" + Background + ")"}}>
-      <Header showHideModal={this.showHideModal}handleViewChange={this.props.handleViewChange}/>
+      <Header
+        logOut={this.logOut}
+        isLoggedIn={this.props.isLoggedIn}
+        showHideModal={this.showHideModal}
+        handleViewChange={this.props.handleViewChange}
+      />
       <div className="header-pad"></div>
       <div>
         {this.props.view === 'tournament' &&
-          <TourneyZone />
+          <TourneyZone isLoggedIn={this.props.isLoggedIn}/>
         }
         {this.props.view === 'records' &&
           <RecordZone />
@@ -40,6 +55,7 @@ class MainView extends Component {
       <LoginModal
         showModal={this.state.showModal}
         showHideModal={this.showHideModal}
+        getLoggedIn={this.props.getLoggedIn}
       />
     </div>
    )
