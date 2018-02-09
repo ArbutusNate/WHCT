@@ -39,6 +39,7 @@ class MainView extends Component {
       </div>
       <LoginModal
         showModal={this.state.showModal}
+        showHideModal={this.showHideModal}
       />
     </div>
    )

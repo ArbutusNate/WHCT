@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter }  from 'react-router-dom';
 import MainView from './components/MainView';
+// import firebase from 'firebase';
 // import Axios from 'axios';
 // import Header from './components/Header';
 // import logo from './logo.svg';
@@ -18,6 +19,8 @@ class App extends Component {
       view: e.target.attributes.view.value
     })
   }
+
+  // FirebaseUI config.
 
   render() {
     return (
