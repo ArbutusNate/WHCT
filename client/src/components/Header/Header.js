@@ -1,6 +1,5 @@
 import React from 'react';
 import './Header.css';
-import {auth} from "../../firebase";
 
 const Header = props =>
   <div className="header">

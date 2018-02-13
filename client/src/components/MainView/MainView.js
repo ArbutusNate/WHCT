@@ -5,17 +5,16 @@ import RecordZone from '../RecordZone';
 import './MainView.css';
 import Background from './spiration_dark.png';
 import LoginModal from '../LoginModal';
-import {auth} from "../../firebase";
-// import openSocket from 'socket.io-client';
-// const socket = openSocket();
+// import {auth} from "../../firebase";
+
 
 class MainView extends Component {
-
-  componentWillMount() {
-    this.setState({
+  constructor(props) {
+    super(props);
+    this.state = {
       showModal: 'none',
       isLoggedIn: false
-    })
+    };
   }
 
   showHideModal = (string) => {
@@ -23,16 +22,16 @@ class MainView extends Component {
     console.log(string)
     this.setState({
       showModal: string
-    })
+    });
   }
 
-  logOut = (e) => {
-    e.preventDefault();
+  getLoggedIn = () => {
     this.setState({
-      isLoggedIn: false
-    })
-    console.log('logged out')
+      isLoggedIn: true
+    });
   }
+
+
 
   render () {
    return (

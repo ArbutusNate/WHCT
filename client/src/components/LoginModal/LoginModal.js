@@ -36,22 +36,17 @@ class LoginModal extends Component {
       ...initialState
     })
     this.props.showHideModal('none');
-    this.props.getLoggedIn();
-    console.log("Welcome back!")
   }
 
-  signUp = (e) => {
+
+  logOut = (e) => {
     e.preventDefault();
-    auth.createAccountEmailPassword(this.state.username, this.state.password1)
-      .catch(error => console.log(error))
     this.setState({
-      ...initialState
+      isLoggedIn: false
     })
-    this.props.showHideModal('none');
-    this.props.getLoggedIn();
-    console.log("New user welcome");
+    // auth.signOut;
+    console.log('logged out');
   }
-
 
   render () {
 
