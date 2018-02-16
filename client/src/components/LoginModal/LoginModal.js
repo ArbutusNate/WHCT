@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import './LoginModal.css';
-// import firebase from 'firebase';
-import { auth } from "../../firebase";
-// import firebaseui from 'firebaseui';
-// var firebase = require('firebase');
-// var firebaseui = require('firebaseui');
+import firebase from 'firebase';
+// import { auth } from "../../firebase";
+
 
 const initialState = {
   username: "",
@@ -31,21 +29,96 @@ class LoginModal extends Component {
   signIn = (e) => {
     e.preventDefault();
     // console.log(e.target);
-    auth.signInEmailPassword(this.state.username, this.state.password1);
-    this.setState({
-      ...initialState
-    })
-    this.props.showHideModal('none');
+    // auth.signInEmailPassword(this.state.username, this.state.password1)
+    //   .catch((error) => {
+    //     return console.log(error);
+    //   })
+    //   .then((error) => {
+    //     if(!error) {
+    //       this.setState({
+    //         ...initialState
+    //       });
+    //       this.props.showHideModal('none');
+    //       this.props.getLoggedIn(true);
+    //     }
+    //   });
+    firebase.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.username, this.state.password1)
+      .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      if (errorCode === 'auth/weak-password') {
+        alert('The password is too weak.');
+      } else {
+        return alert(errorMessage);
+      }
+       return console.log(error);
+      })
+      .then(() => {
+        firebase.auth().onAuthStateChanged((user) => {
+          if(user) {
+            this.setState({
+              ...initialState
+            })
+            this.props.getLoggedIn(true);
+            this.props.showHideModal('none');
+          } else {
+            return console.log("Error Logging In");
+          }
+        })
+      })
   }
 
-
-  logOut = (e) => {
-    e.preventDefault();
-    this.setState({
-      isLoggedIn: false
-    })
-    // auth.signOut;
-    console.log('logged out');
+  signUp = (e) => {
+    firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.username, this.state.password1)
+      .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      if (errorCode === 'auth/weak-password') {
+        alert('The password is too weak.');
+      } else {
+        return alert(errorMessage);
+      }
+       return console.log(error);
+      })
+      .then(() => {
+        firebase.auth().onAuthStateChanged((user) => {
+          if(user) {
+            this.setState({
+              ...initialState
+            })
+            this.props.getLoggedIn(true);
+            this.props.showHideModal('none');
+          } else {
+            return console.log("Error Logging In");
+          }
+        })
+      })
+    // e.preventDefault();
+    // auth.createAccountEmailPassword(this.state.username, this.state.password1)
+    // this.setState({
+    //   ...initialState
+    // })
+    // this.props.showHideModal('none');
+    // firebase.auth.createUserAndRetrieveDataWithEmailAndPassword(this.state.username, this.state.password1)
+    //   .catch(function(error) {
+    //   // Handle Errors here.
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message;
+    //   if (errorCode === 'auth/weak-password') {
+    //     alert('The password is too weak.');
+    //   } else {
+    //     alert(errorMessage);
+    //   }
+    //   console.log(error);
+    //   })
+    //   .then(() => {
+    //     this.setState({
+    //       ...initialState
+    //     })
+    //    this.props.showHideModal('none');
+    //   })
   }
 
   render () {

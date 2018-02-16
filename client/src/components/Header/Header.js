@@ -27,7 +27,7 @@ const Header = props =>
       {props.isLoggedIn ?
         <button
           className="nav-button"
-          onClick={() => this.props.logOut}
+          onClick={() => props.logOut()}
         >
            Log Out
         </button> :
