@@ -1,8 +1,8 @@
 .player-thumbnail {
-  width: 45px;
-  height: 45px;
+  width: 55px;
+  /*height: 45px;*/
   float: left;
-  margin: 0px 3px;
+  margin: 4px 8px 4px 4px;
   /*margin: 10px 10px;*/
 }
 
