@@ -32,21 +32,20 @@ h1 {
   font-family: 'Open Sans', sans-serif;
 }
 
-nav {
+.nav {
   position: absolute;
   top: 0px;
   right: 0px;
   z-index: 10;
 }
 
-.nav-button {
+/*.nav-button {
   height: 100%;
-  /*width: 200px;*/
   line-height: 43px;
   float:left;
   z-index: 2;
   margin: 0px 15px;
-}
+}*/
 
 .nav-button:hover {
   cursor: pointer;

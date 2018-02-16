@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './LoginModal.css';
 import firebase from 'firebase';
-// import { auth } from "../../firebase";
 
 
 const initialState = {
@@ -28,20 +27,6 @@ class LoginModal extends Component {
 
   signIn = (e) => {
     e.preventDefault();
-    // console.log(e.target);
-    // auth.signInEmailPassword(this.state.username, this.state.password1)
-    //   .catch((error) => {
-    //     return console.log(error);
-    //   })
-    //   .then((error) => {
-    //     if(!error) {
-    //       this.setState({
-    //         ...initialState
-    //       });
-    //       this.props.showHideModal('none');
-    //       this.props.getLoggedIn(true);
-    //     }
-    //   });
     firebase.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.username, this.state.password1)
       .catch(function(error) {
       // Handle Errors here.
@@ -95,30 +80,6 @@ class LoginModal extends Component {
           }
         })
       })
-    // e.preventDefault();
-    // auth.createAccountEmailPassword(this.state.username, this.state.password1)
-    // this.setState({
-    //   ...initialState
-    // })
-    // this.props.showHideModal('none');
-    // firebase.auth.createUserAndRetrieveDataWithEmailAndPassword(this.state.username, this.state.password1)
-    //   .catch(function(error) {
-    //   // Handle Errors here.
-    //   var errorCode = error.code;
-    //   var errorMessage = error.message;
-    //   if (errorCode === 'auth/weak-password') {
-    //     alert('The password is too weak.');
-    //   } else {
-    //     alert(errorMessage);
-    //   }
-    //   console.log(error);
-    //   })
-    //   .then(() => {
-    //     this.setState({
-    //       ...initialState
-    //     })
-    //    this.props.showHideModal('none');
-    //   })
   }
 
   render () {
@@ -129,7 +90,7 @@ class LoginModal extends Component {
       this.state.username === '';
 
     return (
-      <div className="modal" style={{display: this.props.showModal}}>
+      <div className="my-modal" style={{display: this.props.showModal}}>
         <div>
           Log In <span className="close-button" onClick={() => this.props.showHideModal('none')}> Close </span>
         </div>

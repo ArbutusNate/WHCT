@@ -7,37 +7,30 @@ const Header = props =>
     <div className="title-box">
         <h1> Community Tournaments </h1>
     </div>
-    <nav>
-      <div
-        className="nav-button"
-        view="tournament"
-        onClick={props.handleViewChange}
-      >
-        Current Tournaments
-      </div>
-
-      <div
-        className="nav-button"
-        view="records"
-        onClick={props.handleViewChange}
-      >
-        Records
-      </div>
-
-      {props.isLoggedIn ?
-        <button
-          className="nav-button"
-          onClick={() => props.logOut()}
-        >
-           Log Out
-        </button> :
-        <button
-          className="nav-button"
-          onClick={() => props.showHideModal('block')}
-        >
-          Log In
-        </button>}
-    </nav>
+    <ul className="nav">
+      <li className="nav-item">
+        <button className="nav-link btn" view="tournament" onClick={props.handleViewChange}>Tournaments</button>
+      </li>
+      <li className="nav-item">
+        <button className="nav-link btn" view="records" onClick={props.handleViewChange}>Records</button>
+      </li>
+      <li className="nav-item">
+        {props.isLoggedIn ?
+          <button
+            className="nav-link btn"
+            onClick={() => props.logOut()}
+          >
+             Log Out
+          </button> :
+          <button
+            className="nav-link btn"
+            onClick={() => props.showHideModal('block')}
+          >
+            Log In
+          </button>
+        }
+      </li>
+    </ul>
   </div>
 
 export default Header;
