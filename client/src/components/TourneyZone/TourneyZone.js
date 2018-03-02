@@ -45,18 +45,18 @@ class TourneyZone extends Component {
 
         {this.state.liveTournaments.map((data, i) => {
           return (
-              <BestOfFive
-                key={`liveT` + i}
-                tName={data.name}
-                player1={data.p1.name}
-                player1wins={data.p1.score}
-                player1faction={data.p1.faction}
-                player2={data.p2.name}
-                player2wins={data.p2.score}
-                player2faction={data.p2.faction}
-              />
-            )
-          })
+            <BestOfFive
+              key={`liveT` + i}
+              tName={data.name}
+              player1={data.p1.name}
+              player1wins={data.p1.score}
+              player1faction={data.p1.faction}
+              player2={data.p2.name}
+              player2wins={data.p2.score}
+              player2faction={data.p2.faction}
+            />
+          )
+        })
         }
 
       </div>

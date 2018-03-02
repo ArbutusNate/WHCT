@@ -24,8 +24,7 @@ const BestOfFiveOptions = props =>
     <button disabled={props.isLive} className="bo5-form-item pure-u-10-24" onClick={props.socketGoLive}> Go Live! </button>
     <button className="bo5-form-item pure-u-10-24" onClick={props.resetTourney}> Reset </button>
 
-    {props.isLive === true &&
-      <BestOfFiveGameOptions {...props} />
+    {props.isLive ? <BestOfFiveGameOptions {...props}/> : null
     }
 
   </div>

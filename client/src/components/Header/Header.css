@@ -39,13 +39,13 @@ h1 {
   z-index: 10;
 }
 
-/*.nav-button {
-  height: 100%;
-  line-height: 43px;
+.btn-outline-secondary {
+  height: 45px;
+  line-height: 22.5px;
   float:left;
   z-index: 2;
-  margin: 0px 15px;
-}*/
+  margin: 0px 5px;
+}
 
 .nav-button:hover {
   cursor: pointer;

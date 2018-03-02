@@ -280,7 +280,11 @@ const axios = require("axios");
       (error, savedTournament) => {
         console.log('SAVED TOURNAMENT');
         console.log(savedTournament);
-        res.json(savedTournament);
+        LiveTInfo.find(
+          {_id: liveTId})
+          .remove(() => {
+            res.json(savedTournament);
+          });
       }
     )
   })
