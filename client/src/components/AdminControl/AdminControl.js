@@ -197,14 +197,28 @@ handleFormSubmit = (e) => {
   }
 }
 
-  componentDidMount() {
-    Axios.get(`/admin/getcompetitors`)
-    .then((res) => {
+handleModeChange = (e) => {
+  e.preventDefault();
+  console.log(e.target.name);
+  this.setState({
+    [e.target.name]: e.target.value
+  }, () => {
+    if((this.state.player1faction !== "") && (this.state.player2faction !== "")) {
       this.setState({
-        'playerList': res.data
-      })
+        disableButtons: false
+      });
+    }
+  });
+}
+
+componentDidMount() {
+  Axios.get(`/admin/getcompetitors`)
+  .then((res) => {
+    this.setState({
+      'playerList': res.data
     })
-  }
+  })
+}
 
   render () {
     return (
