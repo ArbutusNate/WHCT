@@ -11,6 +11,22 @@ import './AdminControl.css';
 // import adminFunctions from './AdminFunctions.js';
 const socket = openSocket();
 
+let initialState = {
+  newPlayer: '',
+  newPlayerLink: '',
+  mode: 'nope',
+  isLive: false,
+  player1: "Choose Player 1",
+  player2: "Choose Player 2",
+  player1wins: 0,
+  player2wins: 0,
+  player1faction: '',
+  player2faction: '',
+  tName: 'New Tournament',
+  link: 'gotta add this',
+  disableButtons: true
+}
+
 
 
 class AdminControl extends Component {
@@ -18,19 +34,7 @@ class AdminControl extends Component {
     super(props)
     // var socket = this.props.socket;
     this.state = {
-      newPlayer: '',
-      newPlayerLink: '',
-      mode: 'nope',
-      isLive: false,
-      player1: "Choose Player 1",
-      player2: "Choose Player 2",
-      player1wins: 0,
-      player2wins: 0,
-      player1faction: '',
-      player2faction: '',
-      tName: 'New Tournament',
-      link: 'gotta add this',
-      disableButtons: true
+      ...initialState
     }
   }
 
@@ -107,17 +111,7 @@ endSaveTournament = (e) => {
       Axios.post(`/admin/updateplayer/${winner}/${loser}/t`)
         .then(response => {
           this.setState({
-            mode: 'BestOf',
-            isLive: false,
-            player1: "Choose Player 1",
-            player2: "Choose Player 2",
-            player1wins: 0,
-            player2wins: 0,
-            player1faction: '',
-            player2faction: '',
-            tName: 'New Tournament',
-            link: 'gotta add this',
-            disableButtons: true
+            ...initialState
           })
           console.log(response.data);
           socket.emit('live', this.state.currentTourneyId);
@@ -247,6 +241,7 @@ componentDidMount() {
                 updateFaction={this.updateFaction}
                 updateScore={this.updateScore}
                 endSaveTournament={this.endSaveTournament}
+                tname={this.state.tname}
                 resetTourney={this.resetTourney}
                 socketGoLive={this.socketGoLive}
                 isLive={this.state.isLive}

@@ -16,18 +16,20 @@ const Header = props =>
       </li>
       <li className="nav-item">
         {props.isLoggedIn ?
-          <button
-            className="nav-link btn-outline-secondary"
-            onClick={() => props.logOut()}
-          >
+          <button className="nav-link btn-outline-secondary" onClick={() => props.logOut()}>
              Log Out
           </button> :
-          <button
-            className="nav-link btn-outline-secondary"
-            onClick={() => props.showHideModal('block')}
-          >
-            Log In
-          </button>
+
+          <div>
+            <button className="nav-link btn-outline-secondary" onClick={() => props.showHideModal('block', "Log In")}>
+              Log In
+            </button>
+
+            <button className="nav-link btn-outline-secondary" onClick={() => props.showHideModal('block', "Sign Up")}>
+              Sign Up
+            </button>
+          </div>
+
         }
       </li>
     </ul>

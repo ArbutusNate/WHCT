@@ -9,7 +9,7 @@ const BestOfFiveOptions = props =>
 
   <div id="sub-control-panel" className="pure-g">
 
-    <input disabled={props.isLive} className="bo5-form-item pure-u-7-24" type="text" placeholder="Tournament Name" name="tName" onChange={props.handleChange}></input>
+    <input disabled={props.isLive} className="bo5-form-item pure-u-7-24" type="text" value={props.tName}placeholder="Tournament Name" name="tName" onChange={props.handleChange}></input>
 
     <select disabled={props.isLive} className="bo5-form-item pure-u-7-24" name="player1" onChange={props.handleChange}>
       <option value="default">Player 1 </option>

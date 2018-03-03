@@ -26,7 +26,6 @@ class LoginModal extends Component {
   }
 
   signIn = (e) => {
-    e.preventDefault();
     firebase.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.username, this.state.password1)
       .catch(function(error) {
       // Handle Errors here.
@@ -82,17 +81,29 @@ class LoginModal extends Component {
       })
   }
 
+  auth = (e) => {
+    e.preventDefault();
+    if (this.props.modalType === "Log In") {
+      console.log("Attempting Sign In");
+      this.signIn();
+    } else {
+      console.log("Attempting Sign Up");
+      this.signUp();
+    }
+  }
+
   render () {
 
     const isInvalid =
-      this.state.password1 !== this.state.password2 ||
+      (this.state.password1 !== this.state.password2 && this.props.modalType === "Sign Up") ||
       this.state.password1 === '' ||
       this.state.username === '';
 
     return (
       <div className="my-modal" style={{display: this.props.showModal}}>
         <div>
-          Log In <span className="close-button" onClick={() => this.props.showHideModal('none')}> Close </span>
+          {this.props.modalType}
+          <span className="close-button" onClick={() => this.props.showHideModal('none')}> Close </span>
         </div>
         <form onSubmit={this.authSubmit}>
           <input
@@ -109,15 +120,17 @@ class LoginModal extends Component {
             value={this.state.password1}
             onChange={this.handleFormChange}
           />
-          <input
-            placeholder="Confirm Password"
-            name="password2"
-            type="password"
-            value={this.state.password2}
-            onChange={this.handleFormChange}
-          />
-          <button disabled={isInvalid} onClick={this.signIn}>Sign In</button>
-          <button disabled={isInvalid} onClick={this.signUp}>Sign Up</button>
+          {this.props.modalType === "Sign Up" &&
+            <input
+              placeholder="Confirm Password"
+              name="password2"
+              type="password"
+              value={this.state.password2}
+              onChange={this.handleFormChange}
+            />
+          }
+          <button disabled={isInvalid} onClick={this.auth}>{this.props.modalType}</button>
+
         </form>
       </div>
      )

@@ -283,6 +283,7 @@ const axios = require("axios");
         LiveTInfo.find(
           {_id: liveTId})
           .remove(() => {
+            console.log("Trying to delete old info");
             res.json(savedTournament);
           });
       }

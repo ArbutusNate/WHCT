@@ -17,11 +17,12 @@ class MainView extends Component {
     };
   }
 
-  showHideModal = (string) => {
+  showHideModal = (string, type) => {
     console.log('showing Modal');
     console.log(string)
     this.setState({
-      showModal: string
+      showModal: string,
+      modalType: type
     });
   }
 
@@ -61,6 +62,7 @@ class MainView extends Component {
         showModal={this.state.showModal}
         showHideModal={this.showHideModal}
         getLoggedIn={this.getLoggedIn}
+        modalType={this.state.modalType}
       />
     </div>
    )
