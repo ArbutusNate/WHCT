@@ -1,7 +1,7 @@
 .my-modal {
   position: fixed;
   width: 210px;
-  height: 300px;
+  /*height: 300px;*/
   right: 0;
   top: 0;
   margin: 20px 30px 0px 0px;
@@ -13,7 +13,7 @@
 
 .my-modal input {
   width: 180px;
-  margin: 10px;
+  margin: 5px 10px 5px 4px;
 }
 
 .my-modal .close-button {
