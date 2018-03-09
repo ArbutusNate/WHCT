@@ -27,34 +27,7 @@ h2 {
 }
 
 .form-control {
+  font-family: 'Fira Sans', bold;
   background-color: #222527;
   border: 1px solid #d98d00;
-}
-
-.bo5-form-item {
-  /*width: 20%;*/
-  margin: auto;
-
-}
-
-.form-control select {
-/*  margin-left: 20px;
-  margin-bottom: 7px;*/
-}
-
-.form-control input {
-  /*margin-left: 20px;*/
-  margin-top: 0px;
-}
-
-.form-control button {
-  /*margin-left: 20px;*/
-}
-
-.admin-submit {
-  margin-top: 15px;
-}
-
-.control-panel b5-background {
-  width: 99%;
 }
