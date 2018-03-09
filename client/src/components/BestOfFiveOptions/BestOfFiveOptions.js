@@ -6,28 +6,33 @@ import './BestOfFiveOptions.css';
 
 
 const BestOfFiveOptions = props =>
+  <div className="container">
+    <div className="row">
 
-  <div id="sub-control-panel" className="pure-g">
+      <input disabled={props.isLive} className="bo5-form-item col-sm" type="text" value={props.tName}placeholder="Tournament Name" name="tName" onChange={props.handleChange}></input>
 
-    <input disabled={props.isLive} className="bo5-form-item pure-u-7-24" type="text" value={props.tName}placeholder="Tournament Name" name="tName" onChange={props.handleChange}></input>
+      <select disabled={props.isLive} className="bo5-form-item col-sm" name="player1" onChange={props.handleChange}>
+        <option value="default">Player 1 </option>
+        <DropDownOption playerList={props.playerList}/>
+      </select>
 
-    <select disabled={props.isLive} className="bo5-form-item pure-u-7-24" name="player1" onChange={props.handleChange}>
-      <option value="default">Player 1 </option>
-      <DropDownOption playerList={props.playerList}/>
-    </select>
-    <select disabled={props.isLive} className="bo5-form-item pure-u-7-24" name="player2" onChange={props.handleChange}>
-      <option value="default">Player 2 </option>
-      <DropDownOption playerList={props.playerList}/>
-    </select>
+      <select disabled={props.isLive} className="bo5-form-item col-sm" name="player2" onChange={props.handleChange}>
+        <option value="default">Player 2 </option>
+        <DropDownOption playerList={props.playerList}/>
+      </select>
 
+    </div>
+    <div className="row">
 
-    <button disabled={props.isLive} className="bo5-form-item pure-u-10-24" onClick={props.socketGoLive}> Go Live! </button>
-    <button className="bo5-form-item pure-u-10-24" onClick={props.resetTourney}> Reset </button>
+      <button disabled={props.isLive} className="bo5-form-item col-sm" onClick={props.socketGoLive}> Go Live! </button>
 
-    {props.isLive ? <BestOfFiveGameOptions {...props}/> : null
-    }
+      <button className="bo5-form-item col-sm" onClick={props.resetTourney}> Reset </button>
 
+    </div>
+    <div className="row">
+      {props.isLive ? <BestOfFiveGameOptions {...props}/> : null
+      }
+    </div>
   </div>
-
 
 export default BestOfFiveOptions

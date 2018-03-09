@@ -40,7 +40,8 @@ class LoginModal extends Component {
       })
       .then(() => {
         firebase.auth().onAuthStateChanged((user) => {
-          if(user) {
+          if(firebase.auth().currentUser) {
+            console.log(user);
             this.setState({
               ...initialState
             })

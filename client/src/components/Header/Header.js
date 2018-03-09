@@ -2,7 +2,7 @@ import React from 'react';
 import './Header.css';
 
 const Header = props =>
-  <div className="header">
+  <div className="navbar">
     <img src="images/turin_brand.jpg" alt="Turin's Youtube Brand" className="brand"/>
     <div className="title-box">
         <h1> Community Tournaments </h1>
