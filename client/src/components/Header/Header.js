@@ -9,29 +9,29 @@ const Header = props =>
     </div>
     <ul className="nav">
       <li className="nav-item">
-        <button className="nav-link btn-outline-secondary" view="tournament" onClick={props.handleViewChange}>Tournaments</button>
+        <button className="hvr-bounce-to-right" view="tournament" onClick={props.handleViewChange}>Tournaments</button>
       </li>
       <li className="nav-item">
-        <button className="nav-link btn-outline-secondary" view="records" onClick={props.handleViewChange}>Records</button>
+        <button className="hvr-bounce-to-right" view="records" onClick={props.handleViewChange}>Records</button>
       </li>
-      <li className="nav-item">
         {props.isLoggedIn ?
-          <button className="nav-link btn-outline-secondary" onClick={() => props.logOut()}>
-             Log Out
-          </button> :
+          <div className="nav-item">
+            <button className="hvr-bounce-to-right" onClick={() => props.logOut()}>
+               Log Out
+            </button>
+          </div> :
 
-          <div>
-            <button className="nav-link btn-outline-secondary" onClick={() => props.showHideModal('block', "Log In")}>
+          <div className="nav-item">
+            <button className="hvr-bounce-to-right" onClick={() => props.showHideModal('block', "Log In")}>
               Log In
             </button>
 
-            <button className="nav-link btn-outline-secondary" onClick={() => props.showHideModal('block', "Sign Up")}>
+            <button className="hvr-bounce-to-right" onClick={() => props.showHideModal('block', "Sign Up")}>
               Sign Up
             </button>
           </div>
 
         }
-      </li>
     </ul>
   </div>
 
