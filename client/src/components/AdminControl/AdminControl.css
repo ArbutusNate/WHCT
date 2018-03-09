@@ -1,11 +1,7 @@
 .control-panel {
-  /*background: #8e0d01;*/
-  /*background-color: #f98d00;*/
   background: #060606;
-  /*color: #f98d00;*/
   color: #060606;
-  /*font-family: 'Open Sans', sans-serif;*/
-  border: 1px solid black;
+  border: 1px solid #222527;
   margin: 5px auto;
   padding-bottom: 7px;
   width: 48%;
@@ -21,7 +17,6 @@ h2 {
   width: 50%;
   font-size: 24px;
   display: inline;
-  border-bottom: 1px black solid;
 }
 
 .mode-select {
@@ -32,7 +27,8 @@ h2 {
 }
 
 .form-control {
-  /*margin: -10px;*/
+  background-color: #222527;
+  border: 1px solid #d98d00;
 }
 
 .bo5-form-item {

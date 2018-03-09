@@ -9,6 +9,7 @@
   background: white;
   z-index: 10;
   padding: 10px;
+  font-family: 'Fira Sans', bold;
 }
 
 .my-modal input {

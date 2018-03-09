@@ -217,9 +217,9 @@ componentDidMount() {
   render () {
     return (
       <div className="control-panel">
-        <div className="pure-g">
-          <h2 className="admin-control-header pure-u-2-3"> Host Controls </h2>
-          <select name="mode" className="mode-select pure-u-1-3" onChange={this.handleModeChange}>
+        <div>
+          <h2 className="admin-control-header"> Host Controls </h2>
+          <select name="mode" className="mode-select" onChange={this.handleModeChange}>
             <option value="nope"> Add New Player </option>
             <option value="BestOf"> Best of </option>
           </select>
