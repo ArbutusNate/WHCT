@@ -23,7 +23,7 @@ let initialState = {
   player1faction: '',
   player2faction: '',
   tName: 'New Tournament',
-  link: 'gotta add this',
+  link: '',
   disableButtons: true
 }
 
@@ -123,17 +123,15 @@ endSaveTournament = (e) => {
 socketGoLive = (e) => {
   this.handleFormSubmit(e);
   e.preventDefault();
-  // (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, isLive)
-
-  // let liveTourney = this.Tournament(this.state.tName, this.state.mode, this.state.player1, this.state.player1faction, this.state.player1wins, this.state.player2, this.state.player2faction, this.state.player2wins, 'youtube link',this.state.isLive);
+  // (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, tlink, isLive)
   if(this.state.player1 === 'Choose Player 1' || this.state.player2 === 'Choose Player 2') {
-    console.log('Choose both players')
+    console.log('Choose both players');
   } else {
     this.setState({
       isLive: true
     })
     console.log("Going Live");
-    Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.link}/${true}`)
+    Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.tLink}/${true}`)
     .then(res => {
       this.setState({
         currentTourneyId: res.data._id,

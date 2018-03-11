@@ -309,13 +309,33 @@ const axios = require("axios");
 
   router.get(`/getcompetitors`, (req, res) => {
     console.log('hitting /getcompetitors');
-    Player.find((error, players) => {
+    Player.find({}, 'name', (error, players) => {
       if(!error) {
         res.json(players);
       } else {
         console.log(error);
       }
     })
+  })
+
+  router.get(`/getrecords/:sort?/:search?`, (req, res) => {
+      Player.find({}, (error, playerData) => {
+        if(!error) {
+          res.json(playerData);
+        } else {
+          console.log(error);
+        }
+      })
+    // else {
+    //   Player.find({name: req.params.search}, (error, playerData) => {
+    //     if(!error) {
+    //       res.json(playerData);
+    //     } else {
+    //       console.log(error);
+    //     }
+    //   })
+    // }
+
   })
 
 module.exports = router;
