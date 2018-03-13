@@ -82,11 +82,11 @@ class RecordZone extends Component {
 
       <form onSubmit={this.searchRecords}>
         <h1> Records </h1>
-        <button onClick={this.getRecords}> Reset </button>
         <input name="nameSearch" type="text" value={this.state.nameSearch} placeholder="Search By Player" onChange={this.handleSearchChange}/>
         <input type="submit" />
       </form>
 
+      <button onClick={this.getRecords}> Reset </button>
 
       <form onSubmit={this.sortRecords}>
         <select name="sortType" type="dropdown" onChange={this.handleSortChange}>
