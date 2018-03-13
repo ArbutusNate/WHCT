@@ -4,14 +4,20 @@ import Axios from "axios";
 import './RecordZone.css';
 
 class RecordZone extends Component {
+    constructor(props) {
+    super(props)
+    this.state = {
+      records: []
+    }
+  }
 
   componentDidMount() {
     Axios.get(`/admin/getrecords`)
       .then((res) => {
-        console.log(res);
-        // this.setState({
-        //   records: 
-        // })
+        console.log(res.data);
+        this.setState({
+          records: res.data
+        })
       })
   }
 
@@ -28,7 +34,21 @@ class RecordZone extends Component {
         </select>
       </div>
       <div className="accordion">
-
+        {this.state.records.map((data, i) => {
+          return (
+            <RecordCollapsible
+              key={i}
+              iter={i}
+              name={data.name}
+              link={data.link}
+              gWins={data.gRecord.wins}
+              gLosses={data.gRecord.losses}
+              tWins={data.tRecord.wins}
+              tLosses={data.tRecord.losses}
+            />
+          )
+        })
+        }
       </div>
     </div>
     )
