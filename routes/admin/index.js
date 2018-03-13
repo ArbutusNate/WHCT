@@ -320,42 +320,32 @@ const axios = require("axios");
     })
   })
 
-  router.get(`/getrecords/:sort?/:search?`, (req, res) => {
-    let sort = req.params.sort || {};
-    let search = req.params.search || null;
+  router.get(`/records/sort/:sort?/`, (req, res) => {
+    let sort = req.params.sort;
     Player.
-      find(search).
+      find({}).
       sort(sort).
       exec((error, playerData) => {
         if(!error) {
-          res.json(playerData)
+          res.json(playerData);
         } else {
-          console.log(error)
+          console.log(error);
         }
       })
 
-    // if(sort && search === undefined) {
-    //   Player.find({}, (error, playerData) => {
-    //     if(!error) {
-    //       res.json(playerData);
-    //     } else {
-    //       console.log(error);
-    //     }
-    //   })
-    // } else if (sort != undefined) {
-    //   console.log('sorting')
-    // }
+  })
 
-    // else {
-    //   Player.find({name: req.params.search}, (error, playerData) => {
-    //     if(!error) {
-    //       res.json(playerData);
-    //     } else {
-    //       console.log(error);
-    //     }
-    //   })
-    // }
-
+  router.get(`/records/search/:search?`, (req, res) => {
+    let search = req.params.search;
+    Player.
+      where('name').equals(search).
+      exec((error, playerData) => {
+        if(!error) {
+          res.json(playerData);
+        } else {
+          console.log(error);
+        }
+      })
   })
 
 module.exports = router;

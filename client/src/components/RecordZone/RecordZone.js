@@ -9,6 +9,8 @@ import './RecordZone.css';
     search: ""
   }
 
+
+
 class RecordZone extends Component {
   constructor(props) {
     super(props)
@@ -17,17 +19,18 @@ class RecordZone extends Component {
     }
   }
 
-
-
-
-  componentDidMount() {
-    Axios.get(`/admin/getrecords`)
+  getRecords = () => {
+    Axios.get(`admin/records/sort`)
       .then((res) => {
         console.log(res.data);
         this.setState({
           records: res.data
         })
       })
+  }
+
+  componentDidMount() {
+    this.getRecords();
   }
 
   handleSortChange = (e) => {
@@ -38,6 +41,20 @@ class RecordZone extends Component {
     })
   }
 
+  sortRecords = (e) => {
+    e.preventDefault();
+    let route = `admin/records/sort/${this.state.sort}/${this.state.search}`
+    console.log(route);
+    Axios.get(route)
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          records: res.data,
+          sort: ""
+        })
+      })
+  }
+
   handleSearchChange = (e) => {
     e.preventDefault();
     this.setState({
@@ -45,22 +62,33 @@ class RecordZone extends Component {
     })
   }
 
-  sortFilterRecords = (e) => {
+  searchRecords = (e) => {
     e.preventDefault();
-    let route = `admin/getrecords/${this.state.sort}/${this.state.search}`
-    console.log(route);
+    let route = `admin/records/search/${this.state.search}`
     Axios.get(route)
       .then((res) => {
-        console.log(res.data);
+        this.setState({
+          records: res.data,
+          search: ""
+        })
       })
   }
+
+
 
   render () {
     return (
     <div>
-      <form onSubmit={this.sortFilterRecords}>
+
+      <form onSubmit={this.searchRecords}>
         <h1> Records </h1>
+        <button onClick={this.getRecords}> Reset </button>
         <input name="nameSearch" type="text" value={this.state.nameSearch} placeholder="Search By Player" onChange={this.handleSearchChange}/>
+        <input type="submit" />
+      </form>
+
+
+      <form onSubmit={this.sortRecords}>
         <select name="sortType" type="dropdown" onChange={this.handleSortChange}>
           <option value={""}>No Sort</option>
           <option value="gRecord.wins">Game Wins</option>
@@ -70,6 +98,8 @@ class RecordZone extends Component {
         </select>
         <input type="submit"/>
       </form>
+
+
       <div className="accordion">
         {this.state.records.map((data, i) => {
           return (
@@ -84,8 +114,7 @@ class RecordZone extends Component {
               tLosses={data.tRecord.losses}
             />
           )
-        })
-        }
+        })}
       </div>
     </div>
     )
