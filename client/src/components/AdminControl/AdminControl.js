@@ -131,7 +131,6 @@ socketGoLive = (e) => {
     this.setState({
       isLive: true
     })
-    console.log("Going Live");
     Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${tLink}/${true}`)
     .then(res => {
       this.setState({
@@ -149,10 +148,7 @@ socketGoLive = (e) => {
 resetTourney = (e) => {
   e.preventDefault();
   this.setState({
-    player1: "Choose Player 1",
-    player2: "Choose Player 2",
-    player1wins: 0,
-    player2wins: 0
+    ...initialState
   })
 }
 

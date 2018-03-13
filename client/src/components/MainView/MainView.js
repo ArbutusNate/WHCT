@@ -18,8 +18,6 @@ class MainView extends Component {
   }
 
   showHideModal = (string, type) => {
-    console.log('showing Modal');
-    console.log(string)
     this.setState({
       showModal: string,
       modalType: type

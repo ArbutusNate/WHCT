@@ -54,6 +54,7 @@ class TourneyZone extends Component {
               player2={data.p2.name}
               player2wins={data.p2.score}
               player2faction={data.p2.faction}
+              tLink={data.tLink}
             />
           )
         })

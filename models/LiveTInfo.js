@@ -5,6 +5,8 @@ var LiveTInfoSchema = new Schema({
 
   name: String,
 
+  tLink: String,
+
   p1: {
     name: String,
     score: {

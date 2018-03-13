@@ -26,6 +26,7 @@ const axios = require("axios");
     //Create Live info for users, add names (score and faction will be default at this point)
     let data = {
       name: req.params.name,
+      tLink: req.params.link,
       p1: {
         name: req.params.p1
       },
@@ -47,7 +48,7 @@ const axios = require("axios");
             player2: req.params.p2,
             isLive: req.params.status,
             currentInfo: newTournament._id,
-            tLink: req.params.tLink
+            tLink: req.params.link
           }},
           {upsert: true, new: true},
           (error, result) => {
