@@ -6,7 +6,7 @@ const RecordCollapsible = props => {
     //Whole Collapsible for each player
   <div className="card">
     <div className="card-header" id={`heading${props.iter}`}>
-      <h5 className={`mb-${props.iter}`}>
+      <h5 className={`collapse-header mb-${props.iter}`}>
         <button className="btn btn-link" data-toggle="collapse" data-target={`#collapse${props.iter}`} aria-expanded="true" aria-controls={`collapse${props.iter}`}>
           {props.name}
         </button>

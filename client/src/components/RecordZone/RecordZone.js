@@ -86,8 +86,6 @@ class RecordZone extends Component {
         <input type="submit" />
       </form>
 
-      <button onClick={this.getRecords}> Reset </button>
-
       <form onSubmit={this.sortRecords}>
         <select name="sortType" type="dropdown" onChange={this.handleSortChange}>
           <option value={""}>No Sort</option>
@@ -99,6 +97,7 @@ class RecordZone extends Component {
         <input type="submit"/>
       </form>
 
+      <button onClick={this.getRecords}> Reset </button>
 
       <div className="accordion">
         {this.state.records.map((data, i) => {
