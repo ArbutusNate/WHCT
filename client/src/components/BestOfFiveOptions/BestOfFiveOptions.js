@@ -9,7 +9,10 @@ const BestOfFiveOptions = props =>
   <div className="container">
     <div className="row">
 
-      <input disabled={props.isLive} className="bo5-form-item col-sm" type="text" value={props.tName} placeholder="Tournament Name" name="tName" onChange={props.handleChange}></input>
+      <input disabled={props.isLive} className="bo5-form-item col-sm" type="text" value={props.tName} placeholder="Tournament Name" name="tName" onChange={props.handleChange} />
+    </div>
+
+    <div className="row">
 
       <select disabled={props.isLive} className="bo5-form-item col-sm" name="player1" onChange={props.handleChange}>
         <option value="default">Player 1 </option>
@@ -22,9 +25,11 @@ const BestOfFiveOptions = props =>
       </select>
 
     </div>
-    <div>
-      <input className="bo5-form-item col-sm" type="text" name="tLink" onChange={props.handleChange} value={props.tLink} placeholder="Link to Stream"> </input>
+
+    <div className="row">
+      <input disabled={props.isLive} name="tLink" className="bo5-form-item col-sm" placeholder="Link to Stream/Vod" onChange={props.handleChange} value={props.tLink} />
     </div>
+
     <div className="row">
 
       <button disabled={props.isLive} className="bo5-form-item col-sm" onClick={props.socketGoLive}> Go Live! </button>

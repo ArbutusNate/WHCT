@@ -123,6 +123,7 @@ endSaveTournament = (e) => {
 socketGoLive = (e) => {
   this.handleFormSubmit(e);
   e.preventDefault();
+  let tLink = encodeURIComponent(this.state.tLink);
   // (name, type, p1, p1Faction, p1Score, p2, p2Faction, p2Score, tlink, isLive)
   if(this.state.player1 === 'Choose Player 1' || this.state.player2 === 'Choose Player 2') {
     console.log('Choose both players');
@@ -131,7 +132,7 @@ socketGoLive = (e) => {
       isLive: true
     })
     console.log("Going Live");
-    Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${this.state.tLink}/${true}`)
+    Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${tLink}/${true}`)
     .then(res => {
       this.setState({
         currentTourneyId: res.data._id,

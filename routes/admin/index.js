@@ -46,7 +46,8 @@ const axios = require("axios");
             player1: req.params.p1,
             player2: req.params.p2,
             isLive: req.params.status,
-            currentInfo: newTournament._id
+            currentInfo: newTournament._id,
+            tLink: req.params.tLink
           }},
           {upsert: true, new: true},
           (error, result) => {
