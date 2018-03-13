@@ -3,13 +3,22 @@ import RecordCollapsible from "../RecordCollapsible";
 import Axios from "axios";
 import './RecordZone.css';
 
+  let initialState = {
+    records: [],
+    sort: "",
+    search: ""
+  }
+
 class RecordZone extends Component {
-    constructor(props) {
+  constructor(props) {
     super(props)
     this.state = {
-      records: []
+      ...initialState
     }
   }
+
+
+
 
   componentDidMount() {
     Axios.get(`/admin/getrecords`)
@@ -21,18 +30,46 @@ class RecordZone extends Component {
       })
   }
 
+  handleSortChange = (e) => {
+    e.preventDefault();
+    console.log(e.target.name);
+    this.setState({
+      sort: `-${e.target.value}`
+    })
+  }
+
+  handleSearchChange = (e) => {
+    e.preventDefault();
+    this.setState({
+      search: e.target.value
+    })
+  }
+
+  sortFilterRecords = (e) => {
+    e.preventDefault();
+    let route = `admin/getrecords/${this.state.sort}/${this.state.search}`
+    console.log(route);
+    Axios.get(route)
+      .then((res) => {
+        console.log(res.data);
+      })
+  }
+
   render () {
     return (
     <div>
-      <div>
+      <form onSubmit={this.sortFilterRecords}>
         <h1> Records </h1>
-        <input type="text" placeholder="Search By Player" />
-        <select type="dropdown">
-          <option value="wins">Game Wins</option>
+        <input name="nameSearch" type="text" value={this.state.nameSearch} placeholder="Search By Player" onChange={this.handleSearchChange}/>
+        <select name="sortType" type="dropdown" onChange={this.handleSortChange}>
+          <option value={""}>No Sort</option>
+          <option value="gRecord.wins">Game Wins</option>
+          <option value="gRecord.losses">Game Losses</option>
           <option value="wlRecords">Record</option>
-          <option value="tournamentWins">Tournament Wins</option>
+          <option value="tRecord.wins">Tournament Wins</option>
         </select>
-      </div>
+        <input type="submit"/>
+      </form>
       <div className="accordion">
         {this.state.records.map((data, i) => {
           return (

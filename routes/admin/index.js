@@ -321,13 +321,31 @@ const axios = require("axios");
   })
 
   router.get(`/getrecords/:sort?/:search?`, (req, res) => {
-      Player.find({}, (error, playerData) => {
+    let sort = req.params.sort || {};
+    let search = req.params.search || null;
+    Player.
+      find(search).
+      sort(sort).
+      exec((error, playerData) => {
         if(!error) {
-          res.json(playerData);
+          res.json(playerData)
         } else {
-          console.log(error);
+          console.log(error)
         }
       })
+
+    // if(sort && search === undefined) {
+    //   Player.find({}, (error, playerData) => {
+    //     if(!error) {
+    //       res.json(playerData);
+    //     } else {
+    //       console.log(error);
+    //     }
+    //   })
+    // } else if (sort != undefined) {
+    //   console.log('sorting')
+    // }
+
     // else {
     //   Player.find({name: req.params.search}, (error, playerData) => {
     //     if(!error) {
