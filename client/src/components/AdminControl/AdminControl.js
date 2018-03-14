@@ -8,13 +8,12 @@ import BestOfFiveOptions from '../BestOfFiveOptions';
 import NewPlayerForm from '../NewPlayerForm';
 // Utility
 import './AdminControl.css';
-// import adminFunctions from './AdminFunctions.js';
 const socket = openSocket();
 
 let initialState = {
   newPlayer: '',
   newPlayerLink: '',
-  mode: 'nope',
+  mode: 'BestOf',
   isLive: false,
   player1: "Choose Player 1",
   player2: "Choose Player 2",
@@ -24,7 +23,8 @@ let initialState = {
   player2faction: '',
   tName: 'New Tournament',
   link: '',
-  disableButtons: true
+  disableButtons: true,
+  playerList: []
 }
 
 
@@ -36,6 +36,13 @@ class AdminControl extends Component {
     this.state = {
       ...initialState
     }
+    Axios.get(`/admin/getcompetitors`)
+    .then((res) => {
+      console.log(res);
+      this.setState({
+        playerList: res.data
+      })
+    })
   }
 
 updateFaction = (e) => {
@@ -201,12 +208,7 @@ handleModeChange = (e) => {
 }
 
 componentDidMount() {
-  Axios.get(`/admin/getcompetitors`)
-  .then((res) => {
-    this.setState({
-      'playerList': res.data
-    })
-  })
+
 }
 
   render () {
@@ -215,39 +217,40 @@ componentDidMount() {
         <div>
           <h2 className="admin-control-header"> Host Controls </h2>
           <select name="mode" className="mode-select" onChange={this.handleModeChange}>
-            <option value="nope"> Add New Player </option>
             <option value="BestOf"> Best of </option>
+            <option value="nope"> Add New Player </option>
           </select>
         </div>
         <form className="form-control" onSubmit={this.handleFormSubmit}>
-            {this.state.mode === "nope" &&
-              <NewPlayerForm
-                addNewPlayer={this.addNewPlayer}
-                newPlayer={this.state.newPlayer}
-                newPlayerLink={this.state.newPlayerLink}
-                handleChange={this.handleModeChange}
-              />
-            }
-            {this.state.mode === "BestOf" &&
-              <BestOfFiveOptions
-                handleLiveTournament={this.handleLiveTournament}
-                tourneyState={this.state.live}
-                handleChange={this.handleModeChange}
-                updateFaction={this.updateFaction}
-                updateScore={this.updateScore}
-                endSaveTournament={this.endSaveTournament}
-                tname={this.state.tname}
-                resetTourney={this.resetTourney}
-                socketGoLive={this.socketGoLive}
-                isLive={this.state.isLive}
-                player1={this.state.player1}
-                player2={this.state.player2}
-                player1faction={this.state.player1faction}
-                player2faction={this.state.player2faction}
-                playerList={this.state.playerList}
-                disableButtons={this.state.disableButtons}
-              />
-            }
+          {this.state.mode === "BestOf" &&
+            <BestOfFiveOptions
+              handleLiveTournament={this.handleLiveTournament}
+              tourneyState={this.state.live}
+              handleChange={this.handleModeChange}
+              updateFaction={this.updateFaction}
+              updateScore={this.updateScore}
+              endSaveTournament={this.endSaveTournament}
+              tname={this.state.tname}
+              resetTourney={this.resetTourney}
+              socketGoLive={this.socketGoLive}
+              isLive={this.state.isLive}
+              player1={this.state.player1}
+              player2={this.state.player2}
+              player1faction={this.state.player1faction}
+              player2faction={this.state.player2faction}
+              playerList={this.state.playerList}
+              disableButtons={this.state.disableButtons}
+            />
+          }
+
+          {this.state.mode === "nope" &&
+            <NewPlayerForm
+              addNewPlayer={this.addNewPlayer}
+              newPlayer={this.state.newPlayer}
+              newPlayerLink={this.state.newPlayerLink}
+              handleChange={this.handleModeChange}
+            />
+          }
         </form>
 
         <TourneyDecider
@@ -262,11 +265,8 @@ componentDidMount() {
         />
 
       </div>
-
     )
-
   }
-
 }
 
 export default AdminControl;

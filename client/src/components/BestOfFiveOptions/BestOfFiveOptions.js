@@ -17,6 +17,7 @@ const BestOfFiveOptions = props =>
       <select disabled={props.isLive} className="bo5-form-item col-sm" name="player1" onChange={props.handleChange}>
         <option value="default">Player 1 </option>
         <DropDownOption playerList={props.playerList}/>
+
       </select>
 
       <select disabled={props.isLive} className="bo5-form-item col-sm" name="player2" onChange={props.handleChange}>

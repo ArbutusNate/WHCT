@@ -313,7 +313,8 @@ const axios = require("axios");
     console.log('hitting /getcompetitors');
     Player.find({}, 'name', (error, players) => {
       if(!error) {
-        res.json(players);
+        console.log(players);
+        return res.json(players);
       } else {
         console.log(error);
       }
@@ -332,7 +333,6 @@ const axios = require("axios");
           console.log(error);
         }
       })
-
   })
 
   router.get(`/records/search/:search?`, (req, res) => {
