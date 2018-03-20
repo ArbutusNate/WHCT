@@ -22,7 +22,7 @@ const axios = require("axios");
   });
 
   // socketGoLive in AdminControl.js
-  router.post(`/save/tournaments/:name/:type/:p1/:p2/:link/:status`, (req, res) => {
+  router.post(`/save/tournaments/:name/:type/:p1/:p2/:link/:status/:uid`, (req, res) => {
     //Create Live info for users, add names (score and faction will be default at this point)
     let data = {
       name: req.params.name,
@@ -48,7 +48,8 @@ const axios = require("axios");
             player2: req.params.p2,
             isLive: req.params.status,
             currentInfo: newTournament._id,
-            tLink: req.params.link
+            tLink: req.params.link,
+            host: req.params.uid
           }},
           {upsert: true, new: true},
           (error, result) => {
@@ -292,6 +293,8 @@ const axios = require("axios");
     )
   })
 
+
+
   //Get Live tournament info on load
   //TourneyZone.js
   router.get(`/liveTournaments/`, (req, res) => {
@@ -346,6 +349,38 @@ const axios = require("axios");
           console.log(error);
         }
       })
+  })
+
+  router.post(`/handledisconnect/:tId/:liveTId`, (req, res) => {
+    Tournament.
+    findOneAndRemove({_id : req.params.tId}).
+    exec((error) => {
+      if(!error) {
+        LiveTInfo.
+        findOneAndRemove({_id : req.params.liveTId}).
+        exec((error) => {
+          if(!error) {
+            return console.log(`Deleted unfinished tourney`);
+          } else {
+            return console.log(error);
+          }
+        })
+      } else {
+        return console.log(error);
+      }
+    })
+  })
+
+  router.get(`/recon/:uid`, (req, res) => {
+    Tournament.find({host: req.params.uid})
+    .where({isLive: true})
+    .exec((error, liveTournament) => {
+      if(!error){
+        res.json(liveTournament);
+      } else {
+        console.log(error);
+      }
+    })
   })
 
 module.exports = router;

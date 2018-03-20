@@ -41,7 +41,7 @@ class TourneyZone extends Component {
   render() {
     return (
       <div className="tourney-zone">
-        {this.props.isLoggedIn ? <AdminControl
+        {this.props.isLoggedIn ? <AdminControl uid={this.props.uid}
           playerList={this.props.playerList} /> : null}
 
         {this.state.liveTournaments.map((data, i) => {

@@ -135,14 +135,12 @@ socketGoLive = (e) => {
   if(this.state.player1 === 'Choose Player 1' || this.state.player2 === 'Choose Player 2') {
     console.log('Choose both players');
   } else {
-    this.setState({
-      isLive: true
-    })
-    Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${tLink}/${true}`)
+    Axios.post(`/admin/save/tournaments/${this.state.tName}/${this.state.mode}/${this.state.player1}/${this.state.player2}/${tLink}/${true}/${this.props.uid}`)
     .then(res => {
       this.setState({
         currentTourneyId: res.data._id,
-        liveTId: res.data.currentInfo
+        liveTId: res.data.currentInfo,
+        isLive: true
       })
       socket.emit('live', this.state.currentTourneyId);
     })
@@ -199,7 +197,7 @@ handleModeChange = (e) => {
   this.setState({
     [e.target.name]: e.target.value
   }, () => {
-    if((this.state.player1faction !== "") && (this.state.player2faction !== "")) {
+    if((this.state.player1faction !== "") && (this.state.player2faction !== "") && (this.state.tLink !== "")) {
       this.setState({
         disableButtons: false
       });
@@ -207,8 +205,10 @@ handleModeChange = (e) => {
   });
 }
 
-componentDidMount() {
-
+componentWillUnMount() {
+  if(this.state.isLive) {
+    Axios.post(`/admin/handledisconnect/${this.state.currentTourneyId}/${this.state.liveTId}`)
+  }
 }
 
   render () {

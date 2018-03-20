@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../Header';
+import Axios from 'axios';
 import TourneyZone from '../TourneyZone';
 import RecordZone from '../RecordZone';
 import './MainView.css';
@@ -24,10 +25,22 @@ class MainView extends Component {
     });
   }
 
-  getLoggedIn = (boolean) => {
+  getLoggedIn = (boolean, uid) => {
     this.setState({
-      isLoggedIn: boolean
+      isLoggedIn: boolean,
+      uid: uid
     });
+    Axios.get(`/admin/recon/${this.state.uid}`)
+      .then((res) => {
+        console.log(res.data[0])
+        let object = res.data[0]
+        let data = {
+          player1: object.player1,
+          player2: object.player2,
+          currentTourneyId: object._id
+        }
+      }
+    )
     console.log(`logged in: ${boolean}`);
   }
 
@@ -50,7 +63,7 @@ class MainView extends Component {
       <div className="header-pad"></div>
       <div>
         {this.props.view === 'tournament' &&
-          <TourneyZone isLoggedIn={this.state.isLoggedIn}/>
+          <TourneyZone uid={this.state.uid} isLoggedIn={this.state.isLoggedIn}/>
         }
         {this.props.view === 'records' &&
           <RecordZone />
