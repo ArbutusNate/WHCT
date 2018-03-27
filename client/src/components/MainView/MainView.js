@@ -26,19 +26,22 @@ class MainView extends Component {
   }
 
   getLoggedIn = (boolean, uid) => {
-    this.setState({
-      isLoggedIn: boolean,
-      uid: uid
-    });
     Axios.get(`/admin/recon/${this.state.uid}`)
       .then((res) => {
-        console.log(res.data[0])
-        let object = res.data[0]
-        let data = {
-          player1: object.player1,
-          player2: object.player2,
-          currentTourneyId: object._id
+        console.log(res.data[0]);
+        if(res.data[0] !== undefined) {
+          let object = res.data[0];
+          var data = {
+            player1: object.player1,
+            player2: object.player2,
+            currentTourneyId: object._id
+          };
         }
+        this.setState({
+          isLoggedIn: boolean,
+          uid: uid,
+          reconnectData: data
+        });
       }
     )
     console.log(`logged in: ${boolean}`);

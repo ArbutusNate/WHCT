@@ -4,7 +4,12 @@ import AdminControl from '../AdminControl';
 import BestOfFive from '../BestOfFive';
 import './TourneyZone.css';
 import openSocket from 'socket.io-client';
+
 const socket = openSocket();
+
+const {whyDidYouUpdate} = require('why-did-you-update')
+
+whyDidYouUpdate(React);
 
 
 class TourneyZone extends Component {

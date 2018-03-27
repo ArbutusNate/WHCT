@@ -73,7 +73,7 @@ class LoginModal extends Component {
             this.setState({
               ...initialState
             })
-            this.props.getLoggedIn(true);
+            this.props.getLoggedIn(true, user.uid);
             this.props.showHideModal('none');
           } else {
             return console.log("Error Logging In");
